@@ -1,0 +1,48 @@
+/* common/css/darkmode.css */
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: sans-serif;
+  }
+  
+  a {
+    color: #90caf9;
+  }
+  
+  a:hover {
+    color: #bbdefb;
+  }
+  
+  header, nav, footer {
+    background-color: #1e1e1e;
+  }
+  
+  input, textarea, select, button {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #444;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #333;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #1c1c1c;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #262626;
+  }
+  

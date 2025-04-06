@@ -1,0 +1,13 @@
+﻿@page
+@model TodoApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "TODOリスト";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<ul>
+@foreach (var task in Model.Tasks)
+{
+            <li>@task</li>
+}
