@@ -1,13 +1,31 @@
 ﻿@page
 @model TodoApp.Pages.IndexModel
-@{
-    ViewData["Title"] = "TODOリスト";
-}
 
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<ul>
-@foreach (var task in Model.Tasks)
-{
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoApp</title>
+</head>
+
+<body>
+    <h2>タスクリスト</h2>
+
+    <!-- タスク追加フォーム -->
+    <form method="post">
+        <input type="text" asp-for="NewTask" placeholder="新しいタスクを入力" required />
+        <button type="submit">追加</button>
+    </form>
+
+    <h3>タスク一覧</h3>
+    <ul>
+        @foreach (var task in Model.Tasks)
+        {
             <li>@task</li>
-}
+        }
+    </ul>
+</body>
+
+</html>

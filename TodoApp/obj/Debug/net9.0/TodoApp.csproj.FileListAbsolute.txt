@@ -96,3 +96,4 @@ C:\Users\k.fujimoto\project\TODOアプリ\TodoApp\obj\Debug\net9.0\TodoApp.pdb
 C:\Users\k.fujimoto\project\TODOアプリ\TodoApp\obj\Debug\net9.0\TodoApp.genruntimeconfig.cache
 C:\Users\k.fujimoto\project\TODOアプリ\TodoApp\obj\Debug\net9.0\ref\TodoApp.dll
 C:\Users\k.fujimoto\project\TODOアプリ\TodoApp\obj\Debug\net9.0\compressed\ckebbpnbes-b04y0y4dtv.gz
+C:\Users\k.fujimoto\project\TODOアプリ\TodoApp\obj\Debug\net9.0\TodoApp.sourcelink.json
