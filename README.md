@@ -8,3 +8,4 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
 dotnet build
 dotnet ef migrations add InitialCreate
+dotnet ef database update
