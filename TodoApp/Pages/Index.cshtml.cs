@@ -1,41 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
+using TodoApp.Data;
+using TodoApp.Models;
 
 namespace TodoApp.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<string> Tasks { get; set; } = new List<string>(); // タスクリスト
+        private readonly AppDbContext _context;
 
+        public IndexModel(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public List<TodoTask> Tasks { get; set; } = new();
         [BindProperty]
-        public string NewTask { get; set; } = string.Empty; // 新しいタスク
+        public string NewTask { get; set; } = string.Empty;
 
         public void OnGet()
         {
-            // 初期データとしてタスクリストを作成
-            Tasks = new List<string>
-            {
-                "買い物に行く",
-                "メールを返信する",
-                "散歩をする"
-            };
+            Tasks = _context.TodoTasks.ToList();
         }
 
-        // タスクを追加する処理
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            Tasks = new List<string>
+            if (!string.IsNullOrWhiteSpace(NewTask))
             {
-                "買い物に行く",
-                "メールを返信する",
-                "散歩をする"
-            };
-
-            if (!string.IsNullOrEmpty(NewTask))
-            {
-                Tasks.Add(NewTask);  // 新しいタスクをリストに追加
+                _context.TodoTasks.Add(new TodoTask { Title = NewTask });
+                _context.SaveChanges();
             }
+
+            return RedirectToPage(); // リダイレクトで再表示
         }
     }
 }
