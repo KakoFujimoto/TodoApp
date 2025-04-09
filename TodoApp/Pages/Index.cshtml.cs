@@ -15,8 +15,12 @@ namespace TodoApp.Pages
         }
 
         public List<TodoTask> Tasks { get; set; } = new();
+
         [BindProperty]
         public string NewTask { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string NewTaskBody { get; set; } = string.Empty;
 
         public void OnGet()
         {
@@ -27,7 +31,11 @@ namespace TodoApp.Pages
         {
             if (!string.IsNullOrWhiteSpace(NewTask))
             {
-                _context.TodoTasks.Add(new TodoTask { Title = NewTask });
+                _context.TodoTasks.Add(new TodoTask
+                {
+                    Title = NewTask,
+                    Body = NewTaskBody
+                });
                 _context.SaveChanges();
             }
 

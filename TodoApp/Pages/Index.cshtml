@@ -15,7 +15,14 @@
 
     <!-- タスク追加フォーム -->
     <form method="post">
-        <input type="text" asp-for="NewTask" placeholder="新しいタスクを入力" required />
+        <div>
+            <label for="NewTask">タイトル:</label>
+            <input type="text" asp-for="NewTask" placeholder="新しいタスクのタイトル" required />
+        </div>
+        <div>
+            <label for="NewTaskBody">本文:</label>
+            <textarea asp-for="NewTaskBody" placeholder="タスクの詳細内容"></textarea>
+        </div>
         <button type="submit">追加</button>
     </form>
 
@@ -23,7 +30,13 @@
     <ul>
         @foreach (var task in Model.Tasks)
         {
-            <li>@task.Title</li>
+            <li>
+                <strong>@task.Title</strong><br />
+                @if (!string.IsNullOrEmpty(task.Body))
+                {
+                    <p>@task.Body</p>  <!-- 本文の表示 -->
+                }
+            </li>
         }
     </ul>
 </body>
