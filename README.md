@@ -9,3 +9,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet build
 dotnet ef migrations add InitialCreate
 dotnet ef database update
+
+dotnet ef migrations add AddBodyToTodoTask
+dotnet ef database update
+```
