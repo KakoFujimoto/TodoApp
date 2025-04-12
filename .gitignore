@@ -33,3 +33,6 @@ Thumbs.db
 *.bak
 *.cache
 *.pdb
+
+# Ignore Visual Studio folder
+.vs/
