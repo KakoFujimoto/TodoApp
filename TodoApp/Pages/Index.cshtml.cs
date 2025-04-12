@@ -43,7 +43,9 @@ namespace TodoApp.Pages
         /// </summary>
         public void OnGet()
         {
-            Tasks = _context.TodoTasks.ToList();
+            Tasks = _context.TodoTasks
+                            .OrderByDescending(task => task.Id)
+                            .ToList();
         }
         /// <summary>
         /// POSTリクエスト時に呼ばれ、新しいタスクをDBに保存する
