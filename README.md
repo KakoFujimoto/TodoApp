@@ -12,4 +12,8 @@ dotnet ef database update
 
 dotnet ef migrations add AddBodyToTodoTask
 dotnet ef database update
+
+dotnet ef migrations add LimitTitleAndBodyLength
+dotnet ef database update
+
 ```
