@@ -31,7 +31,7 @@
         @foreach (var task in Model.Tasks)
         {
             <li>
-                <strong>@task.Title</strong><br />
+                <h4>@task.Title</h4><br />
                 @if (!string.IsNullOrEmpty(task.Body))
                 {
                     <p>@task.Body</p>  <!-- 本文の表示 -->
