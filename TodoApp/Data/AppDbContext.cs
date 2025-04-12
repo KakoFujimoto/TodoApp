@@ -12,6 +12,6 @@ namespace TodoApp.Data
         }
 
 
-        public DbSet<TodoTask> TodoTasks { get; set; }
+        public DbSet<TodoTask> TodoTasks { get; set; } = null!;
     }
 }
