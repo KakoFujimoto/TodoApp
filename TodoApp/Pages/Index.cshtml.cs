@@ -26,17 +26,8 @@ namespace TodoApp.Pages
         /// </summary>
         public List<TodoTask> Tasks { get; set; } = new();
 
-        /// <summary>
-        /// 新規タスクの詳細
-        /// </summary>
         [BindProperty]
-        public string NewTask { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 新規タスクの詳細
-        /// </summary>
-        [BindProperty]
-        public string NewTaskBody { get; set; } = string.Empty;
+        public TodoTask NewTodoTask { get; set; } = new();
 
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
@@ -56,11 +47,7 @@ namespace TodoApp.Pages
         {
             if (ModelState.IsValid)
             {
-                _context.TodoTasks.Add(new TodoTask
-                {
-                    Title = NewTask,
-                    Body = NewTaskBody
-                });
+                _context.TodoTasks.Add(NewTodoTask);
                 _context.SaveChanges();
 
                 return RedirectToPage();

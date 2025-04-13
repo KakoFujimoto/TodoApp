@@ -16,12 +16,14 @@
     <!-- タスク追加フォーム -->
     <form method="post">
         <div>
-            <label asp-for="NewTask">タイトル:</label>
-            <input type="text" asp-for="NewTask" placeholder="新しいタスクのタイトル" required />
+            <label asp-for="NewTodoTask.Title">タイトル:</label>
+            <input type="text" asp-for="NewTodoTask.Title" placeholder="新しいタスクのタイトル" required />
+            <span asp-validation-for="NewTodoTask.Title"></span>
         </div>
         <div>
-            <label asp-for="NewTaskBody">本文:</label>
-            <textarea asp-for="NewTaskBody" placeholder="タスクの詳細内容"></textarea>
+            <label asp-for="NewTodoTask.Body">本文:</label>
+            <textarea asp-for="NewTodoTask.Body" placeholder="タスクの詳細内容"></textarea>
+            <span asp-validation-for="NewTodoTask.Body"></span>
         </div>
         <button type="submit">追加</button>
     </form>
