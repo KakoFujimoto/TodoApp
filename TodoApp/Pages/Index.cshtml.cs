@@ -66,7 +66,7 @@ namespace TodoApp.Pages
                 return RedirectToPage();
             }
 
-            return RedirectToPage();
+            return Page();
         }
     }
 }
