@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
 using TodoApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApp.Pages
 {
@@ -32,23 +33,23 @@ namespace TodoApp.Pages
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
         /// </summary>
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Tasks = _context.TodoTasks
+            Tasks = await _context.TodoTasks
                             .OrderByDescending(task => task.Id)
-                            .ToList();
+                            .ToListAsync();
         }
         /// <summary>
         /// POSTリクエスト時に呼ばれ、新しいタスクをDBに保存する
         /// 入力されたタイトルが空でない場合のみ追加する
         /// </summary>
         /// <returns>リダイレクトしてページを再表示</returns>
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                _context.TodoTasks.Add(NewTodoTask);
-                _context.SaveChanges();
+                await _context.TodoTasks.AddAsync(NewTodoTask);
+                await _context.SaveChangesAsync();
 
                 return RedirectToPage();
             }
