@@ -54,7 +54,7 @@ namespace TodoApp.Pages
         /// <returns>リダイレクトしてページを再表示</returns>
         public IActionResult OnPost()
         {
-            if (!string.IsNullOrWhiteSpace(NewTask))
+            if (ModelState.IsValid)
             {
                 _context.TodoTasks.Add(new TodoTask
                 {
@@ -62,6 +62,8 @@ namespace TodoApp.Pages
                     Body = NewTaskBody
                 });
                 _context.SaveChanges();
+
+                return RedirectToPage();
             }
 
             return RedirectToPage();
