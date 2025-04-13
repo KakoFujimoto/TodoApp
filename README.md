@@ -16,4 +16,8 @@ dotnet ef database update
 dotnet ef migrations add LimitTitleAndBodyLength
 dotnet ef database update
 
+cd .\TodoApp\
+libman init
+libman restore
+
 ```
