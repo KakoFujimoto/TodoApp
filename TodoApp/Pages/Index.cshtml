@@ -36,7 +36,7 @@
                 <h4>@task.Title</h4><br />
                 @if (!string.IsNullOrEmpty(task.Body))
                 {
-                    <p>@Html.Raw(task.FormattedBody)</p>
+                    <p>@task.Body</p>  <!-- 本文の表示 -->
                 }
             </li>
         }
