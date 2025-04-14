@@ -32,8 +32,8 @@
     <ul>
         @foreach (var task in Model.Tasks)
         {
-            <li>
-                <h4>@task.Title</h4><br />
+            <li class="task-item">
+                <h4>@task.Title</h4>
                 @if (!string.IsNullOrEmpty(task.Body))
                 {
                     <p class="multiline-text">@task.Body</p>

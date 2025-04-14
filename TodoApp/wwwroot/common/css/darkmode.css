@@ -95,3 +95,7 @@ button:hover {
 .multiline-text {
   white-space: pre-line;
 }
+
+.task-item {
+  margin-bottom: 1.5rem; 
+}
