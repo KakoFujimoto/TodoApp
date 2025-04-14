@@ -45,13 +45,13 @@ tr:nth-child(odd) {
 }
 
 form {
-  width: 100%; /* フォーム全体の幅を100%に */
+  width: 100%;
   max-width: 600px;
-  margin: 0 auto; /* フォームを中央寄せ */
+  margin: 0 auto;
   padding: 20px;
   background-color: #2a2a2a;
   border-radius: 8px;
-  margin-left: 0; /* 左寄せに調整 */
+  margin-left: 0;
 }
 
 form div {
@@ -80,7 +80,7 @@ textarea {
 
 button {
   padding: 10px 20px;
-  background-color: #3b3b3b; /* ダークモードに適した色に変更 */
+  background-color: #3b3b3b;
   color: white;
   border: none;
   border-radius: 4px;
@@ -89,5 +89,9 @@ button {
 }
 
 button:hover {
-  background-color: #444; /* ダークモードに合わせたホバー効果 */
+  background-color: #444;
+}
+
+.multiline-text {
+  white-space: pre-line;
 }
