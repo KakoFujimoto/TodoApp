@@ -1,29 +1,19 @@
 ﻿@page
 @model TodoApp.Pages.IndexModel
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TodoApp</title>
-</head>
-
-<body>
     <h2>タスクリスト</h2>
 
     <!-- タスク追加フォーム -->
     <form method="post">
         <div>
-            <label asp-for="NewTodoTask.Title">タイトル:</label>
-            <input type="text" asp-for="NewTodoTask.Title" placeholder="新しいタスクのタイトル" required />
-            <span asp-validation-for="NewTodoTask.Title"></span>
+            <label asp-for="FormData.Title">タイトル:</label>
+            <input type="text" asp-for="FormData.Title" placeholder="新しいタスクのタイトル" required maxlength="" />
+            <span asp-validation-for="FormData.Title"></span>
         </div>
         <div>
-            <label asp-for="NewTodoTask.Body">本文:</label>
-            <textarea asp-for="NewTodoTask.Body" placeholder="タスクの詳細内容"></textarea>
-            <span asp-validation-for="NewTodoTask.Body"></span>
+            <label asp-for="FormData.Body">本文:</label>
+            <textarea asp-for="FormData.Body" placeholder="タスクの詳細内容" maxlength=""></textarea>
+            <span asp-validation-for="FormData.Body"></span>
         </div>
         <button type="submit">追加</button>
     </form>
@@ -41,6 +31,3 @@
             </li>
         }
     </ul>
-</body>
-
-</html>
