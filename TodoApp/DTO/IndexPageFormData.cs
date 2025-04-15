@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodoApp.Pages
 {
+    /// <summary>
+    /// Indexページのフォーム入力データを保持するDTOクラス
+    /// </summary>
     public class IndexPageFormData
     {
         public int Id { get; set; }
@@ -13,6 +16,6 @@ namespace TodoApp.Pages
         [Required(ErrorMessage = "本文は必須です")]
         [StringLength(1000, ErrorMessage = "本文は1000文字以内で入力してください")]
         public string Body { get; set; } = string.Empty;
-  
+
     }
 }
