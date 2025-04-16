@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace TodoApp.Models
 {
@@ -32,7 +34,6 @@ namespace TodoApp.Models
         /// </summary>
         private TodoTask() { }
 
-
         /// <summary>
         /// 追加するデータの定義、準備
         /// </summary>
@@ -53,5 +54,33 @@ namespace TodoApp.Models
             await context.Set<TodoTask>().AddAsync(this);
             await context.SaveChangesAsync();
         }
+
+
+        /// <summary>
+        /// 並び順を指定してDBからタスク一覧を取得
+        /// </summary>
+        public static async Task<List<TodoTask>> GetSortedTasksAsync(AppDbContext context, string orderBy = "Id", bool descending = true)
+        {
+            var query = context.TodoTasks.AsQueryable();
+
+            switch (orderBy)
+            {
+                case "Id":
+                    query = descending ? query.OrderByDescending(task => task.Id) : query.OrderBy(task => task.Id);
+                    break;
+                case "Title":
+                    query = descending ? query.OrderByDescending(task => task.Title) : query.OrderBy(task => task.Title);
+                    break;
+                case "Body":
+                    query = descending ? query.OrderByDescending(task => task.Body) : query.OrderBy(task => task.Body);
+                    break;
+                default:
+                    query = descending ? query.OrderByDescending(task => task.Id) : query.OrderBy(task => task.Id);
+                    break;
+            }
+
+            return await query.ToListAsync();
+        }
     }
+
 }

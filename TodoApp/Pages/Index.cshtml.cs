@@ -33,6 +33,8 @@ namespace TodoApp.Pages
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
         /// </summary>
+
+        // のちに削除
         public async Task OnGetAsync()
         {
             Tasks = await _context.TodoTasks
