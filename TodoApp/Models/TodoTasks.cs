@@ -28,6 +28,12 @@ namespace TodoApp.Models
         public string Body { get; set; } = string.Empty;
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        private TodoTask() { }
+
+
+        /// <summary>
         /// 追加するデータの定義、準備
         /// </summary>
         public static TodoTask Create(string title, string body)
