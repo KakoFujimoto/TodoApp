@@ -34,12 +34,9 @@ namespace TodoApp.Pages
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
         /// </summary>
 
-        // のちに削除
         public async Task OnGetAsync()
         {
-            Tasks = await _context.TodoTasks
-                            .OrderByDescending(task => task.Id)
-                            .ToListAsync();
+            Tasks = await TodoTask.GetSortedTasksAsync(_context, orderBy: "Id", descending: true);
         }
         /// <summary>
         /// POSTリクエスト時に呼ばれ、新しいタスクをDBに保存する
