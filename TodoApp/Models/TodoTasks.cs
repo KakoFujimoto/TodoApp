@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TodoApp.Data;
 
 namespace TodoApp.Models
 {
@@ -25,5 +26,26 @@ namespace TodoApp.Models
         [Required(ErrorMessage = "本文は必須です")]
         [MaxLength(1000, ErrorMessage = "本文は1000文字以内で入力してください")]
         public string Body { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 追加するデータの定義、準備
+        /// </summary>
+        public static TodoTask Create(string title, string body)
+        {
+            return new TodoTask
+            {
+                Title = title,
+                Body = body
+            };
+        }
+
+        /// <summary>
+        /// DBへの保存
+        /// </summary>
+        public async Task SaveAsync(AppDbContext context)
+        {
+            await context.Set<TodoTask>().AddAsync(this);
+            await context.SaveChangesAsync();
+        }
     }
 }

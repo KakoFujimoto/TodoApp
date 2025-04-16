@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
 using TodoApp.Models;
 using Microsoft.EntityFrameworkCore;
-using TodoApp.Pages;
 
 namespace TodoApp.Pages
 {
@@ -29,7 +28,7 @@ namespace TodoApp.Pages
         public List<TodoTask> Tasks { get; set; } = new();
 
         [BindProperty]
-        public IndexPageFormData FormData {get; set; } = new();
+        public IndexPageFormData FormData { get; set; } = new();
 
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
@@ -48,13 +47,11 @@ namespace TodoApp.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
-            {   
-                var todoTask = new TodoTask();
-                todoTask.Title = FormData.Title;
-                todoTask.Body = FormData.Body;
-                await _context.TodoTasks.AddAsync(todoTask);
-                await _context.SaveChangesAsync();
-
+            {
+                // 追加するデータの定義、準備
+                var todoTask = TodoTask.Create(FormData.Title, FormData.Body);
+                // DBへの保存
+                await todoTask.SaveAsync(_context);
                 return RedirectToPage();
             }
 
