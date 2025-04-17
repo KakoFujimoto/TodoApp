@@ -36,7 +36,7 @@ namespace TodoApp.Pages
 
         public async Task OnGetAsync()
         {
-            Tasks = await TodoTask.GetSortedTasksAsync(_context, orderBy: "Id", descending: true);
+            Tasks = await TodoTask.GetSortedTasksAsync(_context, TaskOrderBy.Id, descending: true);
         }
         /// <summary>
         /// POSTリクエスト時に呼ばれ、新しいタスクをDBに保存する

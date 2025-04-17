@@ -5,6 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TodoApp.Models
 {
+    public enum TaskOrderBy
+    {
+        Id,
+        Title,
+        Body
+    }
+
     /// <summary>
     /// Todoアプリで扱うタスクのデータを保持するモデル
     /// </summary>
@@ -59,28 +66,19 @@ namespace TodoApp.Models
         /// <summary>
         /// 並び順を指定してDBからタスク一覧を取得
         /// </summary>
-        public static async Task<List<TodoTask>> GetSortedTasksAsync(AppDbContext context, string orderBy = "Id", bool descending = true)
+        public static async Task<List<TodoTask>> GetSortedTasksAsync(AppDbContext context, TaskOrderBy orderBy = TaskOrderBy.Id, bool descending = true)
         {
-            var query = context.TodoTasks.AsQueryable();
+            IQueryable<TodoTask> query = context.TodoTasks;
 
-            switch (orderBy)
+            query = (orderBy, descending) switch
             {
-                case "Id":
-                    query = descending ? query.OrderByDescending(task => task.Id) : query.OrderBy(task => task.Id);
-                    break;
-                case "Title":
-                    query = descending ? query.OrderByDescending(task => task.Title) : query.OrderBy(task => task.Title);
-                    break;
-                case "Body":
-                    query = descending ? query.OrderByDescending(task => task.Body) : query.OrderBy(task => task.Body);
-                    break;
-                default:
-                    query = descending ? query.OrderByDescending(task => task.Id) : query.OrderBy(task => task.Id);
-                    break;
-            }
+                (TaskOrderBy.Id, true) => query.OrderByDescending(t => t.Id),
+                (TaskOrderBy.Id, false) => query.OrderBy(t => t.Id),
+                _ => query.OrderByDescending(t => t.Id)
+            };
 
             return await query.ToListAsync();
         }
-    }
 
+    }
 }
