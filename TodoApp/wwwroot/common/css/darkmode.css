@@ -109,3 +109,23 @@ button:hover {
 .task:hover .edit-icon {
   display: inline-block;
 }
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3b3b3b;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  font-family: inherit;
+  font-weight: normal;
+  text-align: center;
+}
+
+.button-link:hover {
+  background-color: #444;
+}
