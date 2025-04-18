@@ -89,5 +89,14 @@ namespace TodoApp.Models
             await context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// 外部から与えられたデータで更新する
+        /// </summary>
+        public void Update(string title, string body)
+        {
+            Title = title;
+            Body = body;
+        }
+
     }
 }

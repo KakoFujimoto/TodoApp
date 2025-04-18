@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
-using TodoApp.Models;
 
 namespace TodoApp.Pages
 {
@@ -49,7 +48,7 @@ namespace TodoApp.Pages
                 return NotFound();
             }
 
-            ApplyFormData(taskInDb, FormData);
+            taskInDb.Update(FormData.Title, FormData.Body);
 
             await _context.SaveChangesAsync();
 
@@ -67,12 +66,5 @@ namespace TodoApp.Pages
             await taskToDelete.DeleteAsync(_context);
             return RedirectToPage("/Index");
         }
-
-        private void ApplyFormData(TodoTask task, EditPageFormData formData)
-        {
-            task.Title = formData.Title;
-            task.Body = formData.Body;
-        }
-
     }
 }
