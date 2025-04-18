@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
 using TodoApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace TodoApp.Pages
 {

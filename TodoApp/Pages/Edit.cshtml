@@ -1,0 +1,26 @@
+@page
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>Edit Task</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="FormData.Id" />
+
+    <div class="form-group">
+        <label asp-for="FormData.Title"></label>
+        <input asp-for="FormData.Title" class="form-control" />
+        <span asp-validation-for="FormData.Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FormData.Body"></label>
+        <textarea asp-for="FormData.Body" class="form-control"></textarea>
+        <span asp-validation-for="FormData.Body"></span>
+    </div>
+
+    <button type="submit">Save</button>
+    <a asp-page="/Index">Cancel</a>
+</form>

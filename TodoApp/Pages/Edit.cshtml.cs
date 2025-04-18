@@ -1,0 +1,59 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using TodoApp.Data;
+
+namespace TodoApp.Pages
+{
+    public class EditModel : PageModel
+    {
+        private readonly AppDbContext _context;
+
+        public EditModel(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+        public EditPageFormData FormData { get; set; } = new();
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            var task = await _context.TodoTasks.FindAsync(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            FormData = new EditPageFormData
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Body = task.Body
+            };
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var taskInDb = await _context.TodoTasks.FindAsync(FormData.Id);
+
+            if (taskInDb == null)
+            {
+                return NotFound();
+            }
+
+            taskInDb.Title = FormData.Title;
+            taskInDb.Body = FormData.Body;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Index");
+        }
+    }
+}
