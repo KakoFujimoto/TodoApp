@@ -28,6 +28,10 @@
                 {
                     <p class="multiline-text">@task.Body</p>
                 }
+
+                <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
             </li>
         }
     </ul>
