@@ -8,8 +8,8 @@ namespace TodoApp.Models
     public enum TaskOrderBy
     {
         Id,
-        Title,
-        Body
+        // Title,
+        // Body
     }
 
     /// <summary>
