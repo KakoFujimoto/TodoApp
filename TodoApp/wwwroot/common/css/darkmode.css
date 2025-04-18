@@ -129,3 +129,56 @@ button:hover {
 .button-link:hover {
   background-color: #444;
 }
+
+.form-container {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.inline-delete-form {
+  display: inline;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #444;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #333;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #333;
+  color: white;
+  text-decoration: none;  /* ← これで下線を消す */
+}
+
+.btn-secondary:hover {
+  background-color: #444;
+  color: white;
+  text-decoration: none;  /* ← hover時も忘れずに */
+}
+

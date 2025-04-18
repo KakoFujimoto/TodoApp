@@ -55,5 +55,18 @@ namespace TodoApp.Pages
 
             return RedirectToPage("/Index");
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync([FromForm] EditPageFormData formData)
+        {
+            var taskToDelete = await _context.TodoTasks.FindAsync(formData.Id);
+            if (taskToDelete == null)
+            {
+                return NotFound();
+            }
+
+            await taskToDelete.DeleteAsync(_context);
+            return RedirectToPage("/Index");
+        }
+
     }
 }

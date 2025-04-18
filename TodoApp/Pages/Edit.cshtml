@@ -1,4 +1,4 @@
-@page
+@page "{id?}"
 @model EditModel
 @{
     ViewData["Title"] = "Edit Task";
@@ -21,6 +21,13 @@
         <span asp-validation-for="FormData.Body"></span>
     </div>
 
-    <button type="submit">Save</button>
-    <a asp-page="/Index"  class="button-link">Cancel</a>
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-page="/Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+<form method="post" asp-page="/Edit" asp-page-handler="Delete" onsubmit="return confirm('本当に削除しますか？');" class="inline-delete-form">
+    <input type="hidden" name="Id" value="@Model.FormData.Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
 </form>

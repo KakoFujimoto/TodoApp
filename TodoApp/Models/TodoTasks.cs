@@ -80,5 +80,14 @@ namespace TodoApp.Models
             return await query.ToListAsync();
         }
 
+        /// <summary>
+        /// DBから削除
+        /// </summary>
+        public async Task DeleteAsync(AppDbContext context)
+        {
+            context.TodoTasks.Remove(this);
+            await context.SaveChangesAsync();
+        }
+
     }
 }
