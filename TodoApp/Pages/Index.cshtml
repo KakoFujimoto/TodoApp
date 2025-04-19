@@ -20,21 +20,20 @@
 
 <h3>タスク一覧</h3>
 <ul>
-    each (var task in Model.Tasks)
-
+    @foreach (var task in Model.Tasks)
     {
-{        <li class="task-item">
-               <h4> @task.Title</h4>
-          @i(!string.IsNullOrEmpty(task.Body))
+        <li class="task-item">
+            <h4>@task.Title</h4>
+            @if (!string.IsNullOrEmpty(task.Body))
             {
-  {                  <p class="multiline-text">@task.Body</p>
+                <p class="multiline-text">@task.Body</p>
             }
 
-}            <!-- 完了ボックス -->
-              <form me  thod="post" asp-page-handler="Complete" onsubmit="return confirm('このタスクを完了にしますか？');" class="complete-form">
-                    <input type="hidden" name="id" value="@task.Id" />
-                    <input type="checkbox" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
-            <label>完了</label>
+            <!-- 完了ボックス -->
+            <form method="post" asp-page-handler="Complete" onsubmit="return confirm('このタスクを完了にしますか？');" class="complete-form">
+                <input type="hidden" name="id" value="@task.Id" />
+                <input type="checkbox" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
+                <label>完了</label>
             </form>
 
             <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
