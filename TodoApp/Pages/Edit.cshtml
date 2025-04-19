@@ -27,7 +27,7 @@
     </div>
 </form>
 
-<form method="post" asp-page="/Edit" asp-page-handler="Delete" onsubmit="return confirm('本当に削除しますか？');" class="inline-delete-form">
-    <input type="hidden" name="Id" value="@Model.FormData.Id" />
+<form method="post" asp-page-handler="Delete" onsubmit="return confirm('本当に削除しますか？');" class="inline-delete-form">
+    <input asp-for="FormData.Id" type="hidden" />
     <button type="submit" class="btn btn-danger">Delete</button>
 </form>
