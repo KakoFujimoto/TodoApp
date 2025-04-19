@@ -71,9 +71,18 @@ namespace TodoApp.Models
         /// <summary>
         /// 並び順を指定してDBからタスク一覧を取得
         /// </summary>
-        public static async Task<List<TodoTask>> GetSortedTasksAsync(AppDbContext context, TaskOrderBy orderBy = TaskOrderBy.Id, bool descending = true)
+        public static async Task<List<TodoTask>> GetSortedTasksAsync(
+            AppDbContext context,
+            TaskOrderBy orderBy = TaskOrderBy.Id,
+            bool descending = true,
+            bool? isCompleted = null)
         {
             IQueryable<TodoTask> query = context.TodoTasks;
+
+            if (isCompleted.HasValue)
+            {
+                query = query.Where(t => t.IsCompleted == isCompleted.Value);
+            }
 
             query = (orderBy, descending) switch
             {

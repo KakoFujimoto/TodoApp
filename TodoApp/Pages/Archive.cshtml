@@ -1,0 +1,16 @@
+@page
+@model TodoApp.Pages.ArchiveModel
+
+<h2>アーカイブされたタスク</h2>
+
+<ul>
+@foreach (var task in Model.ArchivedTasks)
+{
+    <li>
+        <strong>@task.Title</strong><br />
+        <span>@task.Body</span>
+    </li>
+}
+</ul>
+
+<a asp-page="/Index">← 戻る</a>

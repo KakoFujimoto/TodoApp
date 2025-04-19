@@ -2,8 +2,6 @@
 @model TodoApp.Pages.IndexModel
 
 <h2>タスクリスト</h2>
-
-<!-- タスク追加フォーム -->
 <form method="post">
     <div>
         <label asp-for="FormData.Title">タイトル:</label>
@@ -19,47 +17,50 @@
 </form>
 
 <h3>タスク一覧</h3>
+<p>
+    <a asp-page="/Archive" class="archive-link">→ アーカイブされたタスクを見る</a>
+</p>
 <ul>
+
     @foreach (var task in Model.Tasks)
-    {
-        <li class="task-item">
+        {
+            <li class="task-item">
             <h4>@task.Title</h4>
+
             @if (!string.IsNullOrEmpty(task.Body))
-            {
+                   { 
                 <p class="multiline-text">@task.Body</p>
             }
+    
+                <form method="post" asp-page-handler="Complete" onsubmit="return confirm('このタスクを完了にしますか？');" class="complete-form">
+                    <input type="hidden" name="id" value="@task.Id" />
+                    <input type="checkbox" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
+                    <label>完了</label>
+                </form>
 
-            <!-- 完了ボックス -->
-            <form method="post" asp-page-handler="Complete" onsubmit="return confirm('このタスクを完了にしますか？');" class="complete-form">
-                <input type="hidden" name="id" value="@task.Id" />
-                <input type="checkbox" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
-                <label>完了</label>
-            </form>
-
-            <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
-                <i class="fas fa-pencil-alt"></i>
-            </a>
-        </li>
+                <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            </li>
     }
 </ul>
 
-<script>
-    // 完了のチェックボックスをクリックした際のフォーム送信処理
-    document.addEventListener("DOMContentLoaded", function () {
-        const checkboxes = document.querySelectorAll('.complete-form input[type="checkbox"]');
+@* <script>
+document.addEventListener("DOMContentLoaded", function () {
+const checkboxes = document.querySelectorAll('.complete-form input[type="checkbox"]');
         
         checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    if (confirm('このタスクを完了にしますか？')) {
-                        this.form.submit();
-                    } else {
-                        this.checked = false;
-                    }
+            checkbox.addEventListener('click', function (e) {
+                if (!this.checked) return;
+                
+                const confirmed = confirm('このタスクを完了にしますか？');
+                if(!confirmed){
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
                 } else {
                     this.form.submit();
                 }
             });
         });
     });
-</script>
+</script> *@

@@ -181,4 +181,13 @@ button:hover {
   color: white;
   text-decoration: none;  /* ← hover時も忘れずに */
 }
+.archive-link {
+  display: inline-block;
+  margin-bottom: 1em;
+  color: #007acc;
+  text-decoration: none;
+}
 
+.archive-link:hover {
+  text-decoration: underline;
+}

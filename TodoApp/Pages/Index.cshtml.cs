@@ -34,7 +34,7 @@ namespace TodoApp.Pages
         /// </summary>
         public async Task OnGetAsync()
         {
-            Tasks = await TodoTask.GetSortedTasksAsync(_context, TaskOrderBy.Id, descending: true);
+            Tasks = await TodoTask.GetSortedTasksAsync(_context, TaskOrderBy.Id, descending: true, isCompleted: false);
         }
 
         /// <summary>
