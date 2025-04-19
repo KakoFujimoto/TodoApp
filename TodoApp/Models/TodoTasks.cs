@@ -37,6 +37,11 @@ namespace TodoApp.Models
         public string Body { get; set; } = string.Empty;
 
         /// <summary>
+        /// タスクの完了状態を持つフラグ
+        /// </summary>
+        public bool IsCompleted { get; set; } = false;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         private TodoTask() { }
@@ -96,6 +101,14 @@ namespace TodoApp.Models
         {
             Title = title;
             Body = body;
+        }
+
+        /// <summary>
+        /// 選択したタスクを完了状態にする
+        /// </summary>
+        public void CheckAsCompleted()
+        {
+            this.IsCompleted = true;
         }
 
     }

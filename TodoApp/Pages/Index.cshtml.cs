@@ -32,11 +32,11 @@ namespace TodoApp.Pages
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
         /// </summary>
-
         public async Task OnGetAsync()
         {
             Tasks = await TodoTask.GetSortedTasksAsync(_context, TaskOrderBy.Id, descending: true);
         }
+
         /// <summary>
         /// POSTリクエスト時に呼ばれ、新しいタスクをDBに保存する
         /// 入力されたタイトルが空でない場合のみ追加する
@@ -54,6 +54,17 @@ namespace TodoApp.Pages
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostCompleteAsync(int id)
+        {
+            var task = await _context.TodoTasks.FindAsync(id);
+            if (task != null)
+            {
+                task.CheckAsCompleted();
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToPage();
         }
     }
 }
