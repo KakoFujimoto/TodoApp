@@ -115,7 +115,7 @@ namespace TodoApp.Models
         /// <summary>
         /// 選択したタスクを完了状態にする
         /// </summary>
-        public void CheckAsCompleted()
+        public void SetCompleted()
         {
             this.IsCompleted = true;
         }

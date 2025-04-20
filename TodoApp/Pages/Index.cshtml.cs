@@ -61,7 +61,7 @@ namespace TodoApp.Pages
             var task = await _context.TodoTasks.FindAsync(id);
             if (task != null)
             {
-                task.CheckAsCompleted();
+                task.SetCompleted();
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage();
