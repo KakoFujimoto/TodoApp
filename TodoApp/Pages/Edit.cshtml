@@ -27,7 +27,19 @@
     </div>
 </form>
 
-<form method="post" asp-page-handler="Delete" onsubmit="return confirm('本当に削除しますか？');" class="inline-delete-form">
+<form id ="delete-form" method="post" asp-page-handler="Delete">
     <input asp-for="FormData.Id" type="hidden" />
     <button type="submit" class="btn btn-danger">Delete</button>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const form = document.getElementById('delete-form');
+    form.addEventListener('submit', function(e){
+        if(!confirm(message)){
+            e.preventDefault();
+        }
+    });
+});
+</script>
+
