@@ -35,7 +35,7 @@
                 <form id = "complete-form" method="post" asp-page-handler="Complete">
                     <input type="hidden" name="id" value="@task.Id" />
                     <label>
-                    <input type="checkbox" @(task.IsCompleted ? "checked" : "") />
+                    <input type="checkbox" />
                     完了
                     </label>
                 </form>
