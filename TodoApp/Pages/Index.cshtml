@@ -32,9 +32,9 @@
                 <p class="multiline-text">@task.Body</p>
             }
     
-                <form method="post" asp-page-handler="Complete" onsubmit="return confirm('このタスクを完了にしますか？');" class="complete-form">
+                <form id = "complete-form" method="post" asp-page-handler="Complete">
                     <input type="hidden" name="id" value="@task.Id" />
-                    <input type="checkbox" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
+                    <input type="checkbox" @(task.IsCompleted ? "checked" : "") />
                     <label>完了</label>
                 </form>
 
@@ -45,22 +45,20 @@
     }
 </ul>
 
-@* <script>
-document.addEventListener("DOMContentLoaded", function () {
-const checkboxes = document.querySelectorAll('.complete-form input[type="checkbox"]');
-        
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('click', function (e) {
-                if (!this.checked) return;
-                
-                const confirmed = confirm('このタスクを完了にしますか？');
-                if(!confirmed){
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                } else {
-                    this.form.submit();
-                }
-            });
-        });
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const form = document.getElementById('complete-form');
+    const checkbox = form.querySelector('input[type = "checkbox"]');
+
+    checkbox.addEventListener('click', function(e){
+        const message = 'このタスクを完了にしますか？';
+        if(!confirm(message)){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.checked = !this.checked;
+        } else {
+            form.submit();
+        }
     });
-</script> *@
+});
+</script>

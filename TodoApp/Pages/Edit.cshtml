@@ -36,6 +36,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     const form = document.getElementById('delete-form');
     form.addEventListener('submit', function(e){
+        const message = '本当に削除しますか？';
         if(!confirm(message)){
             e.preventDefault();
         }
