@@ -34,8 +34,10 @@
     
                 <form id = "complete-form" method="post" asp-page-handler="Complete">
                     <input type="hidden" name="id" value="@task.Id" />
+                    <label>
                     <input type="checkbox" @(task.IsCompleted ? "checked" : "") />
-                    <label>完了</label>
+                    完了
+                    </label>
                 </form>
 
                 <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
