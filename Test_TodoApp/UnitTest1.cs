@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using TodoApp.Data;
 using TodoApp.Models;
 
 namespace Test_TodoApp;
 
-public class UnitTest1
+public class UnitTest1 : IDisposable
 {
-    private static readonly AppDbContext db;
-
     static UnitTest1()
-    {
+    {   
+        AppDbContext db;
         var builder = new DbContextOptionsBuilder<AppDbContext>();
         builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
         db = new AppDbContext(builder.Options);
@@ -18,8 +19,19 @@ public class UnitTest1
         db.Database.EnsureCreated();
 
     }
+    private readonly AppDbContext db;
+    public UnitTest1()
+    {
+        var builder = new DbContextOptionsBuilder<AppDbContext>();
+        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
+        db = new AppDbContext(builder.Options);
+    }
+    
+    public void Dispose()
+    {
+        db.Dispose();
+    }
 
-    public static AppDbContext GetContext() => db;
 
     [Fact]
     public void Test1()
@@ -33,6 +45,7 @@ public class UnitTest1
         Assert.Equal("aa", item.Title);
 
         transaction.Rollback();
+        
     }
 
 
@@ -49,4 +62,20 @@ public class UnitTest1
 
         transaction.Rollback();
     }
+
+    [Fact]
+    public async Task SaveAsync_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        var task = TodoTask.Create("title","body");
+        await task.SaveAsync(db);
+
+        var firstItem = db.TodoTasks.First();
+        Assert.Equal("title", firstItem.Title);
+        Assert.Equal("body", firstItem.Body);
+
+        transaction.Rollback();
+    }
+
 }
