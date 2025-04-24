@@ -9,7 +9,7 @@ namespace Test_TodoApp;
 public class UnitTest1 : IDisposable
 {
     static UnitTest1()
-    {   
+    {
         AppDbContext db;
         var builder = new DbContextOptionsBuilder<AppDbContext>();
         builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
@@ -26,7 +26,7 @@ public class UnitTest1 : IDisposable
         builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
         db = new AppDbContext(builder.Options);
     }
-    
+
     public void Dispose()
     {
         db.Dispose();
@@ -34,7 +34,7 @@ public class UnitTest1 : IDisposable
 
 
     [Fact]
-    public void Test1()
+    public void Create_Test01()
     {
         using var transaction = db.Database.BeginTransaction();
 
@@ -45,12 +45,12 @@ public class UnitTest1 : IDisposable
         Assert.Equal("aa", item.Title);
 
         transaction.Rollback();
-        
+
     }
 
 
     [Fact]
-    public void Test2()
+    public void Create_Test02()
     {
         using var transaction = db.Database.BeginTransaction();
 
@@ -68,7 +68,7 @@ public class UnitTest1 : IDisposable
     {
         using var transaction = db.Database.BeginTransaction();
 
-        var task = TodoTask.Create("title","body");
+        var task = TodoTask.Create("title", "body");
         await task.SaveAsync(db);
 
         var firstItem = db.TodoTasks.First();
@@ -77,5 +77,29 @@ public class UnitTest1 : IDisposable
 
         transaction.Rollback();
     }
+
+    [Fact]
+
+    public async Task GetSortedTasksAsync_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        db.TodoTasks.AddRange(new[]
+        {
+            TodoTask.Create("First", "A"),
+            TodoTask.Create("Second", "B"),
+            TodoTask.Create("Third", "C")
+        });
+        db.SaveChanges();
+
+        var tasks = await TodoTask.GetSortedTasksAsync(db);
+        var ids = tasks.Select(t => t.Id).ToList();
+
+        Assert.Equal(new List<int> { 3, 2, 1 }, ids);
+
+        transaction.Rollback();
+
+    }
+
 
 }
