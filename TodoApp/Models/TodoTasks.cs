@@ -12,6 +12,13 @@ namespace TodoApp.Models
         // Body
     }
 
+    public enum Priority
+    {
+        Urgent,
+        Normal,
+        Low
+    }
+
     /// <summary>
     /// Todoアプリで扱うタスクのデータを保持するモデル
     /// </summary>
@@ -42,6 +49,11 @@ namespace TodoApp.Models
         public bool IsCompleted { get; set; } = false;
 
         /// <summary>
+        /// タスクの優先度
+        /// </summary>
+        public Priority Priority { get; set; } = Priority.Normal;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         private TodoTask() { }
@@ -49,12 +61,13 @@ namespace TodoApp.Models
         /// <summary>
         /// 追加するデータの定義、準備
         /// </summary>
-        public static TodoTask Create(string title, string body)
+        public static TodoTask Create(string title, string body, Priority priority = Priority.Normal)
         {
             return new TodoTask
             {
                 Title = title,
-                Body = body
+                Body = body,
+                Priority = priority
             };
         }
 
