@@ -1,5 +1,6 @@
 ﻿@page
 @model TodoApp.Pages.IndexModel
+@using TodoApp.Models
 
 <h2>タスクリスト</h2>
 <form method="post">
@@ -13,6 +14,11 @@
         <textarea asp-for="FormData.Body" placeholder="タスクの詳細内容" maxlength=""></textarea>
         <span asp-validation-for="FormData.Body"></span>
     </div>
+    <div>
+        <label asp-for="FormData.Priority">優先度:</label>
+        <select asp-for="FormData.Priority" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+        <span asp-validation-for="FormData.Priority"></span>
+    </div>
     <button type="submit">追加</button>
 </form>
 
@@ -23,44 +29,48 @@
 <ul>
 
     @foreach (var task in Model.Tasks)
-        {
-            <li class="task-item">
+    {
+        <li class="task-item">
             <h4>@task.Title</h4>
 
             @if (!string.IsNullOrEmpty(task.Body))
-                   { 
+            {
                 <p class="multiline-text">@task.Body</p>
             }
-    
-                <form id = "complete-form" method="post" asp-page-handler="Complete">
-                    <input type="hidden" name="id" value="@task.Id" />
-                    <label>
+
+            <form class="complete-form" method="post" asp-page-handler="Complete">
+                <input type="hidden" name="id" value="@task.Id" />
+                <label>
                     <input type="checkbox" />
                     完了
-                    </label>
-                </form>
+                </label>
+            </form>
 
-                <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-            </li>
+            <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+        </li>
     }
 </ul>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    const form = document.getElementById('complete-form');
-    const checkbox = form.querySelector('input[type = "checkbox"]');
+    document.addEventListener('DOMContentLoaded', function () {
+        const forms = document.querySelectorAll('.complete-form');
 
-    checkbox.addEventListener('click', function(e){
-        const message = 'このタスクを完了にしますか？';
-        if(!confirm(message)){
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            this.checked = !this.checked;
-        } else {
-            form.submit();
-        }
+        forms.forEach(function (form) {
+            const checkbox = form.querySelector('input[type="checkbox"]');
+
+
+            checkbox.addEventListener('click', function (e) {
+                const message = 'このタスクを完了にしますか？';
+                if (!confirm(message)) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    this.checked = !this.checked;
+                } else {
+                    form.submit();
+                }
+            });
+        });
     });
-});
 </script>
