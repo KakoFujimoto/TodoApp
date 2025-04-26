@@ -28,7 +28,8 @@ namespace TodoApp.Pages
             {
                 Id = task.Id,
                 Title = task.Title,
-                Body = task.Body
+                Body = task.Body,
+                Priority = task.Priority
             };
 
             return Page();
