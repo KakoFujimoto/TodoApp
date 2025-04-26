@@ -33,6 +33,8 @@
         <li class="task-item">
             <h4>@task.Title</h4>
 
+            <p>優先度: @task.Priority</p>
+
             @if (!string.IsNullOrEmpty(task.Body))
             {
                 <p class="multiline-text">@task.Body</p>

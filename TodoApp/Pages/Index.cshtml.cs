@@ -47,7 +47,7 @@ namespace TodoApp.Pages
             if (ModelState.IsValid)
             {
                 // 追加するデータの定義、準備
-                var todoTask = TodoTask.Create(FormData.Title, FormData.Body);
+                var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority);
                 // DBへの保存
                 await todoTask.SaveAsync(_context);
                 return RedirectToPage();

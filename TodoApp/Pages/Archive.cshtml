@@ -4,13 +4,14 @@
 <h2>アーカイブされたタスク</h2>
 
 <ul>
-@foreach (var task in Model.ArchivedTasks)
-{
-    <li>
-        <strong>@task.Title</strong><br />
-        <span>@task.Body</span>
-    </li>
-}
+    @foreach (var task in Model.ArchivedTasks)
+    {
+        <li>
+            <h4>@task.Title</h4>
+            <p>優先度: @task.Priority</p>
+            <p class="multiline-text">@task.Body</p>
+        </li>
+    }
 </ul>
 
 <a asp-page="/Index">← 戻る</a>

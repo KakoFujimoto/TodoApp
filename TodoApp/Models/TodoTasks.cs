@@ -120,10 +120,11 @@ namespace TodoApp.Models
         /// <summary>
         /// 外部から与えられたデータで更新する
         /// </summary>
-        public void Update(string title, string body)
+        public void Update(string title, string body, Priority priority)
         {
             Title = title;
             Body = body;
+            Priority = priority;
         }
 
         /// <summary>
