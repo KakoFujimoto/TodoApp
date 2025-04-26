@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TodoApp.Models;
 
 namespace TodoApp.Pages
 {
@@ -16,6 +17,9 @@ namespace TodoApp.Pages
         [Required(ErrorMessage = "本文は必須です")]
         [StringLength(1000, ErrorMessage = "本文は1000文字以内で入力してください")]
         public string Body { get; set; } = string.Empty;
+
+        [Range(1, int.MaxValue, ErrorMessage = "優先度を選択してください")]
+        public Priority Priority { get; set; } = Priority.None;
 
     }
 }

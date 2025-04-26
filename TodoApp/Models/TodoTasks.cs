@@ -14,6 +14,7 @@ namespace TodoApp.Models
 
     public enum Priority
     {
+        None,
         Urgent,
         Normal,
         Low
