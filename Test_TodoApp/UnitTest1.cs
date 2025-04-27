@@ -1,20 +1,22 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+﻿using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
 using TodoApp.Models;
 
 namespace Test_TodoApp;
 
 public class UnitTest1 : IDisposable
-{
-    static UnitTest1()
+{   
+    private static AppDbContext CreateDbContext()
     {
-        AppDbContext db;
         var builder = new DbContextOptionsBuilder<AppDbContext>();
         builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
-        db = new AppDbContext(builder.Options);
+        var options = builder.Options;
 
+        return new AppDbContext(options);
+    }
+    static UnitTest1()
+    {
+        var db = CreateDbContext();
         db.Database.EnsureDeleted();
         db.Database.EnsureCreated();
 
@@ -22,9 +24,7 @@ public class UnitTest1 : IDisposable
     private readonly AppDbContext db;
     public UnitTest1()
     {
-        var builder = new DbContextOptionsBuilder<AppDbContext>();
-        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
-        db = new AppDbContext(builder.Options);
+        db = CreateDbContext();
     }
 
     public void Dispose()
@@ -93,9 +93,9 @@ public class UnitTest1 : IDisposable
         db.SaveChanges();
 
         var tasks = await TodoTask.GetSortedTasksAsync(db);
-        var ids = tasks.Select(t => t.Id).ToList();
+        var titles = tasks.Select(t => t.Title).ToList();
 
-        Assert.Equal(new List<int> { 3, 2, 1 }, ids);
+        Assert.Equal(new List<string> { "Third", "Second", "First" }, titles);
 
         transaction.Rollback();
 
