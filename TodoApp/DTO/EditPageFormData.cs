@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.Models;
+using TodoApp.Validation;
 
 namespace TodoApp.Pages
 {
@@ -20,7 +21,7 @@ namespace TodoApp.Pages
 
         public string Body { get; set; } = string.Empty;
 
-        [Range(1, int.MaxValue, ErrorMessage = "優先度を選択してください")]
+        [PriorityValidator(ErrorMessage = "優先度を選択してください")]
         public Priority Priority { get; set; } = Priority.None;
 
     }

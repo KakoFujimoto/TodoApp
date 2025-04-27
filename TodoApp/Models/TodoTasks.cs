@@ -14,10 +14,10 @@ namespace TodoApp.Models
 
     public enum Priority
     {
-        None,
-        Urgent,
-        Normal,
-        Low
+        None = 0,
+        Urgent = 1,
+        Normal = 2,
+        Low = 3
     }
 
     /// <summary>
