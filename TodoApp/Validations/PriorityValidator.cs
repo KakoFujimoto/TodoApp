@@ -3,13 +3,17 @@ using TodoApp.Models;
 
 namespace TodoApp.Validation
 {
-    public class PriorityValidator : ValidationAttribute
+    public class PriorityValidationAttribute : ValidationAttribute
     {
         public override bool IsValid(object? value)
         {
             if (value is Priority priority)
             {
-                return priority == Priority.Low || priority == Priority.Normal || priority == Priority.Urgent;
+                if (!Enum.IsDefined(priority))
+                {
+                    return false;
+                }
+                return priority != Priority.None;
             }
             return false;
         }

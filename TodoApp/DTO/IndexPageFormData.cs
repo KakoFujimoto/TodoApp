@@ -19,7 +19,7 @@ namespace TodoApp.Pages
         [StringLength(1000, ErrorMessage = "本文は1000文字以内で入力してください")]
         public string Body { get; set; } = string.Empty;
 
-        [PriorityValidator(ErrorMessage = "優先度を選択してください")]
+        [PriorityValidation(ErrorMessage = "優先度を選択してください")]
         public Priority Priority { get; set; } = Priority.None;
 
     }

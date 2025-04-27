@@ -21,7 +21,7 @@ namespace TodoApp.Pages
 
         public string Body { get; set; } = string.Empty;
 
-        [PriorityValidator(ErrorMessage = "優先度を選択してください")]
+        [PriorityValidation(ErrorMessage = "優先度を選択してください")]
         public Priority Priority { get; set; } = Priority.None;
 
     }
