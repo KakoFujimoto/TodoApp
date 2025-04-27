@@ -8,6 +8,7 @@ namespace TodoApp.Models
     public enum TaskOrderBy
     {
         Id,
+        Priority
         // Title,
         // Body
     }
@@ -102,6 +103,8 @@ namespace TodoApp.Models
             {
                 (TaskOrderBy.Id, true) => query.OrderByDescending(t => t.Id),
                 (TaskOrderBy.Id, false) => query.OrderBy(t => t.Id),
+                (TaskOrderBy.Priority, true) => query.OrderByDescending(t => t.Priority),
+                (TaskOrderBy.Priority, false) => query.OrderBy(t => t.Priority),
                 _ => query.OrderByDescending(t => t.Id)
             };
 
