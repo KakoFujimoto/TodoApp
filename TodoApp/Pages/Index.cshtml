@@ -23,6 +23,22 @@
 </form>
 
 <h3>タスク一覧</h3>
+<form method="get">
+    <label for="orderBy">並びの基準:</label>
+    <select id="orderBy" name="orderBy">
+        <option value="Id" selected="@(Model.SelectedOrderBy == "Id" ? "selected" : null)">ID順</option>
+        <option value="Priority" selected="@(Model.SelectedOrderBy == "Priority" ? "selected" : null)">優先度順</option>
+    </select>
+
+    <label for="descending">並び順:</label>
+    <select id="descending" name="SelectedDescending">
+        <option value="true" selected="@(Model.SelectedDescending ? "selected" : null)">降順</option>
+        <option value="false" selected="@(!Model.SelectedDescending ? "selected" : null)">昇順</option>
+    </select>
+
+    <button type="submit">並び替え</button>
+</form>
+
 <p>
     <a asp-page="/Archive" class="archive-link">→ アーカイブされたタスクを見る</a>
 </p>

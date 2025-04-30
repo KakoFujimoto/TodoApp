@@ -29,12 +29,24 @@ namespace TodoApp.Pages
         [BindProperty]
         public IndexPageFormData FormData { get; set; } = new();
 
+        // 並び順セレクトボックス用のプロパティ
+        [BindProperty(SupportsGet = true)]
+        public string SelectedOrderBy { get; set; } = "Id";
+
+        [BindProperty(SupportsGet = true)]
+        public bool SelectedDescending { get; set; } = true;
+
+
         /// <summary>
         /// GETリクエスト時に呼ばれ、DBからタスクリストを読み込む
         /// </summary>
         public async Task OnGetAsync()
         {
-            Tasks = await TodoTask.GetSortedTasksAsync(_context, TaskOrderBy.Id, descending: true, isCompleted: false);
+            Console.WriteLine($"SelectedOrderBy : {SelectedOrderBy}");
+            Console.WriteLine($"SelectedDescending : {SelectedDescending}");
+
+            TaskOrderBy orderBy = Enum.TryParse<TaskOrderBy>(SelectedOrderBy, out var parsedOrderBy) ? parsedOrderBy : TaskOrderBy.Id;
+            Tasks = await TodoTask.GetSortedTasksAsync(_context, orderBy, SelectedDescending, isCompleted: false);
         }
 
         /// <summary>
