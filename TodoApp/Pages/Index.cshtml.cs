@@ -1,7 +1,9 @@
+using System.Drawing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
 using TodoApp.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TodoApp.Pages
 {
@@ -30,10 +32,12 @@ namespace TodoApp.Pages
         public IndexPageFormData FormData { get; set; } = new();
 
         // 並び順セレクトボックス用のプロパティ
-        [BindProperty(SupportsGet = true)]
+        [BindNever]
+        [FromQuery]
         public string SelectedOrderBy { get; set; } = "Id";
 
-        [BindProperty(SupportsGet = true)]
+        [BindNever]
+        [FromQuery]
         public bool SelectedDescending { get; set; } = true;
 
 
@@ -56,16 +60,26 @@ namespace TodoApp.Pages
         /// <returns>リダイレクトしてページを再表示</returns>
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
-            {
-                // 追加するデータの定義、準備
-                var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority);
-                // DBへの保存
-                await todoTask.SaveAsync(_context);
-                return RedirectToPage();
-            }
+            Console.WriteLine($"ModelState.IsValid = {ModelState.IsValid}");
 
-            return Page();
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    var key = entry.Key;
+                    var errors = entry.Value.Errors;
+
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"Error in '{key}:{error.ErrorMessage}");
+                    }
+                }
+                return Page();
+            }
+            var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority);
+            await todoTask.SaveAsync(_context);
+            return RedirectToPage();
+
         }
 
         public async Task<IActionResult> OnPostCompleteAsync(int id)

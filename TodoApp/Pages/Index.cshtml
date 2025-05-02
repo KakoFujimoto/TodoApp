@@ -16,7 +16,10 @@
     </div>
     <div>
         <label asp-for="FormData.Priority">優先度:</label>
-        <select asp-for="FormData.Priority" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+        <select asp-for="FormData.Priority"
+            asp-items="@(new SelectList(Enum.GetValues(typeof(Priority)).Cast<Priority>().Where(p => p != Priority.None)))">
+            <option value="">-- 優先度を選択してください --</option>
+        </select>
         <span asp-validation-for="FormData.Priority"></span>
     </div>
     <button type="submit">追加</button>
