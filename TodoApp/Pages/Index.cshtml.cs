@@ -33,7 +33,7 @@ namespace TodoApp.Pages
 
         // 並び順セレクトボックス用のプロパティ
         [FromQuery]
-        public string? SelectedOrderBy { get; set; }
+        public TaskOrderBy? SelectedOrderBy { get; set; }
 
         [FromQuery]
         public bool? SelectedDescending { get; set; }
@@ -47,7 +47,11 @@ namespace TodoApp.Pages
             Console.WriteLine($"SelectedOrderBy : {SelectedOrderBy}");
             Console.WriteLine($"SelectedDescending : {SelectedDescending}");
 
-            TaskOrderBy orderBy = Enum.TryParse<TaskOrderBy>(SelectedOrderBy, out var parsedOrderBy) ? parsedOrderBy : TaskOrderBy.Id;
+            TaskOrderBy orderBy = SelectedOrderBy ?? TaskOrderBy.Id;
+            if (orderBy == TaskOrderBy.None)
+            {
+                orderBy = TaskOrderBy.Id;
+            }
             bool descending = SelectedDescending ?? true;
             Tasks = await TodoTask.GetSortedTasksAsync(_context, orderBy, descending, isCompleted: false);
         }

@@ -7,6 +7,7 @@ namespace TodoApp.Models
 {
     public enum TaskOrderBy
     {
+        None,
         Id,
         Priority
         // Title,

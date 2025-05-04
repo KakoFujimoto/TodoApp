@@ -28,15 +28,19 @@
 <h3>タスク一覧</h3>
 <form method="get">
     <label for="orderBy">並びの基準:</label>
-    <select id="orderBy" name="orderBy">
-        <option value="Id" selected="@(Model.SelectedOrderBy == "Id" ? "selected" : null)">ID順</option>
-        <option value="Priority" selected="@(Model.SelectedOrderBy == "Priority" ? "selected" : null)">優先度順</option>
+    <select id="orderBy" name="SelectedOrderBy">
+        @foreach (TaskOrderBy order in Enum.GetValues(typeof(TaskOrderBy)))
+        {
+            <option value="@order" selected="@(Model.SelectedOrderBy == order)">
+                @order.ToString()
+            </option>
+        }
     </select>
 
     <label for="descending">並び順:</label>
     <select id="descending" name="SelectedDescending">
-        <option value="true" selected="@(Model.SelectedDescending ? "selected" : null)">降順</option>
-        <option value="false" selected="@(!Model.SelectedDescending ? "selected" : null)">昇順</option>
+        <option value="true" selected="@(Model.SelectedDescending ?? true)">降順</option>
+        <option value="false" selected="@(!(Model.SelectedDescending ?? true))">昇順</option>
     </select>
 
     <button type="submit">並び替え</button>
