@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
 using TodoApp.Models;
+using TodoApp.Pages;
 
 namespace Test_TodoApp;
 
 public class UnitTest1 : IDisposable
-{   
+{
     private static AppDbContext CreateDbContext()
     {
         var builder = new DbContextOptionsBuilder<AppDbContext>();
@@ -98,8 +99,85 @@ public class UnitTest1 : IDisposable
         Assert.Equal(new List<string> { "Third", "Second", "First" }, titles);
 
         transaction.Rollback();
-
     }
 
+
+    [Fact]
+
+    public async Task DeleteAsync_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        var task = TodoTask.Create("ToDelete", "Test");
+        db.TodoTasks.Add(task);
+        db.SaveChanges();
+
+        var taskToDelete = await db.TodoTasks.FirstOrDefaultAsync(t => t.Title == "ToDelete");
+
+        Assert.NotNull(taskToDelete);
+
+        await taskToDelete.DeleteAsync(db);
+
+        var deletedTask = await db.TodoTasks.FirstOrDefaultAsync(t => t.Title == "ToDelete");
+        Assert.Null(deletedTask);
+
+        transaction.Rollback();
+    }
+
+    [Fact]
+    public void Update_Test()
+    {
+        var task = TodoTask.Create("Old Title", "Old Body");
+
+        task.Update("New Title", "New Body", Priority.Urgent);
+
+        Assert.Equal("New Title", task.Title);
+        Assert.Equal("New Body", task.Body);
+        Assert.Equal(Priority.Urgent, task.Priority);
+    }
+
+    [Fact]
+    public void SetCompleted_Test()
+    {
+        var task = TodoTask.Create("Test Task", "Test Body");
+
+        Assert.False(task.IsCompleted);
+
+        task.SetCompleted();
+
+        Assert.True(task.IsCompleted);
+    }
+
+    [Fact]
+    public async Task OnGetAsync_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        db.TodoTasks.AddRange(new[]
+        {
+            TodoTask.Create("Task A", "Body A"),
+            TodoTask.Create("Task B", "Body B"),
+            TodoTask.Create("Task C", "Body C"),
+        });
+
+        await db.SaveChangesAsync();
+
+        var pageModel = new IndexModel(db);
+
+        pageModel.SelectedOrderBy = TaskOrderBy.Id;
+        pageModel.SelectedDescending = true;
+
+        await pageModel.OnGetAsync();
+
+        var ids = pageModel.Tasks.Select(t => t.Id).ToList();
+
+        for (int i = 0; i < ids.Count - 1; i++)
+        {
+            Assert.True(ids[i] > ids[i + 1]);
+        }
+
+        transaction.Rollback();
+
+    }
 
 }
