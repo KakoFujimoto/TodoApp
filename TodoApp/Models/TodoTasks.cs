@@ -57,6 +57,11 @@ namespace TodoApp.Models
         public Priority Priority { get; set; } = Priority.Normal;
 
         /// <summary>
+        /// タスクの表示順序を表す
+        /// </summary>
+        public int SortOrder { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         private TodoTask() { }
