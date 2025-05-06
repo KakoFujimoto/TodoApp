@@ -111,6 +111,7 @@ namespace TodoApp.Models
                 (TaskOrderBy.Id, false) => query.OrderBy(t => t.Id),
                 (TaskOrderBy.Priority, true) => query.OrderByDescending(t => t.Priority),
                 (TaskOrderBy.Priority, false) => query.OrderBy(t => t.Priority),
+                (TaskOrderBy.SortOrder, _) => query.OrderBy(t => t.SortOrder),
                 _ => query.OrderByDescending(t => t.Id)
             };
 
@@ -146,6 +147,18 @@ namespace TodoApp.Models
 
         public async Task OrderAsync(AppDbContext db, int v)
         {
+            var tasks = await db.TodoTasks.OrderBy(t => t.SortOrder).ToListAsync();
+
+            tasks.RemoveAll(t => t.Id == this.Id);
+
+            tasks.Insert(v - 1, this);
+
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                tasks[i].SortOrder = i + 1;
+            }
+
+            await db.SaveChangesAsync();
         }
     }
 }
