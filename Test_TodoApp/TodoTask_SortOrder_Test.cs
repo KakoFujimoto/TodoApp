@@ -1,16 +1,19 @@
 using TodoApp.Data;
 using TodoApp.Models;
 
-
 namespace Test_TodoApp;
 
 public class TodoTask_SortOrder_Test : IDisposable
 {
     private readonly AppDbContext db;
 
+    public TodoTask_SortOrder_Test()
+    {
+        db = TestDbHelper.CreateDbContext();
+    }
     public void Dispose()
     {
-        // db.Dispose();
+        db.Dispose();
     }
 
     [Fact]

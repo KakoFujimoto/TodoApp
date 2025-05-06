@@ -7,25 +7,10 @@ namespace Test_TodoApp;
 
 public class IndexPage_Test : IDisposable
 {
-    private static AppDbContext CreateDbContext()
-    {
-        var builder = new DbContextOptionsBuilder<AppDbContext>();
-        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TodoAppDb-test;Trusted_Connection=True;");
-        var options = builder.Options;
-
-        return new AppDbContext(options);
-    }
-    static IndexPage_Test()
-    {
-        var db = CreateDbContext();
-        db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
-
-    }
     private readonly AppDbContext db;
     public IndexPage_Test()
     {
-        db = CreateDbContext();
+        db = TestDbHelper.CreateDbContext();
     }
 
     public void Dispose()
