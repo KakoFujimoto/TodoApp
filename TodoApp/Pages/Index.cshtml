@@ -28,13 +28,7 @@
 <h3>タスク一覧</h3>
 <form method="get">
     <label for="orderBy">並びの基準:</label>
-    <select id="orderBy" name="SelectedOrderBy">
-        @foreach (TaskOrderBy order in Enum.GetValues(typeof(TaskOrderBy)))
-        {
-            <option value="@order" selected="@(Model.SelectedOrderBy == order)">
-                @order.ToString()
-            </option>
-        }
+    <select asp-for="SelectedOrderBy" id="orderBy" asp-items="Html.GetEnumSelectList<TaskOrderBy>()">
     </select>
 
     <label for="descending">並び順:</label>
@@ -49,7 +43,7 @@
 <p>
     <a asp-page="/Archive" class="archive-link">→ アーカイブされたタスクを見る</a>
 </p>
-<ul>
+<ul id="task-list">
 
     @foreach (var task in Model.Tasks)
     {

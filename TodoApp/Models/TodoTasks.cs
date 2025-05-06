@@ -2,16 +2,16 @@ using System.ComponentModel.DataAnnotations;
 using TodoApp.Data;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace TodoApp.Models
 {
     public enum TaskOrderBy
     {
         None,
         Id,
-        Priority
+        Priority,
         // Title,
         // Body
+        SortOrder
     }
 
     public enum Priority
@@ -144,5 +144,8 @@ namespace TodoApp.Models
             this.IsCompleted = true;
         }
 
+        public async Task OrderAsync(AppDbContext db, int v)
+        {
+        }
     }
 }
