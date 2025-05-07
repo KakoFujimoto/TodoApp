@@ -47,12 +47,12 @@ namespace TodoApp.Pages
             Console.WriteLine($"SelectedOrderBy : {SelectedOrderBy}");
             Console.WriteLine($"SelectedDescending : {SelectedDescending}");
 
-            TaskOrderBy orderBy = SelectedOrderBy ?? TaskOrderBy.Id;
+            TaskOrderBy orderBy = SelectedOrderBy ?? TaskOrderBy.SortOrder;
             if (orderBy == TaskOrderBy.None)
             {
                 orderBy = TaskOrderBy.Id;
             }
-            bool descending = SelectedDescending ?? true;
+            bool descending = SelectedDescending ?? false;
             Tasks = await TodoTask.GetSortedTasksAsync(_context, orderBy, descending, isCompleted: false);
         }
 
