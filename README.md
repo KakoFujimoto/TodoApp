@@ -23,4 +23,8 @@ libman restore
 dotnet ef migrations add AddIsCompletedToTodoTask
 dotnet ef migrations add CompleteTaskFix
 dotnet ef database update
+
+
+dotnet add package Microsoft.AspNetCore.Mvc.Testing
+
 ```
