@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using TodoApp.Data;
 using TodoApp.Models;
@@ -95,7 +96,7 @@ public class TodoTask_SortOrder_Test : IClassFixture<WebApplicationFactory<Progr
     }
 
     [Fact]
-    public async  Task 並び替えAPIにIDリストを渡すとタスクのSortOrderが更新される()
+    public async Task 並び替えAPIにIDリストを渡すとタスクのSortOrderが更新される()
     {
         using var transaction = db.Database.BeginTransaction();
 
