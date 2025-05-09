@@ -111,7 +111,8 @@ namespace TodoApp.Models
                 (TaskOrderBy.Id, false) => query.OrderBy(t => t.Id),
                 (TaskOrderBy.Priority, true) => query.OrderByDescending(t => t.Priority),
                 (TaskOrderBy.Priority, false) => query.OrderBy(t => t.Priority),
-                (TaskOrderBy.SortOrder, _) => query.OrderBy(t => t.SortOrder),
+                (TaskOrderBy.SortOrder, true) => query.OrderByDescending(t => t.SortOrder),
+                (TaskOrderBy.SortOrder, false) => query.OrderBy(t => t.SortOrder),
                 _ => query.OrderByDescending(t => t.Id)
             };
 
