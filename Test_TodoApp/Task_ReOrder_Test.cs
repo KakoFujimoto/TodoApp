@@ -11,9 +11,16 @@ public class Task_ReOrder_Test : IDisposable
     private readonly HttpClient _client;
 
     public Task_ReOrder_Test()
-    {   
+    {
         var appFactory = new WebApplicationFactory<Program>();
         _client = appFactory.CreateClient();
+
+        // TaskControllerがサーバに認識されているかの確認
+        var dummyTaskIds = new List<int> { 1, 2, 3 };
+        var dummyResponse = _client.PostAsJsonAsync("/api/tasks/reorder", dummyTaskIds).Result;
+        Console.WriteLine($"POST /api/tasks/reorder => Status Code:{dummyResponse.StatusCode}");
+
+
         db = TestDbHelper.CreateDbContext();
     }
     public void Dispose()
@@ -22,7 +29,7 @@ public class Task_ReOrder_Test : IDisposable
     }
 
     [Fact]
-    public async  Task 並び替えAPIにIDリストを渡すとタスクのSortOrderが更新される()
+    public async Task 並び替えAPIにIDリストを渡すとタスクのSortOrderが更新される()
     {
         using var transaction = db.Database.BeginTransaction();
 

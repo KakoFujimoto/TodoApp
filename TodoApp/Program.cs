@@ -9,6 +9,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
+        builder.Services.AddControllers();
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -28,6 +29,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseRouting();
+
+        app.MapControllers();
 
         app.UseAuthorization();
 
