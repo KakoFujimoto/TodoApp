@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
+using TodoApp.Common;
+
 
 namespace TodoApp.Services
 {
@@ -17,13 +19,13 @@ namespace TodoApp.Services
         /// </summary>
         /// <param name="taslIds">新しい順序のタスクIdリスト</param>
         /// <returns>成功したかどうか</returns>
-        public async Task<bool> ReOrderTaskAsync(List<int> taskIds)
+        public async Task<ServiceResult> ReOrderTaskAsync(List<int> taskIds)
         {
             var tasks = await _db.TodoTasks.Where(t => taskIds.Contains(t.Id)).ToListAsync();
 
             if (tasks.Count != taskIds.Count)
             {
-                return false;
+                return ServiceResult.Fail("TaskNotFound", "指定されたタスクの一部が見つかりませんでした");
             }
 
             for (int i = 0; i < taskIds.Count; i++)
@@ -33,7 +35,7 @@ namespace TodoApp.Services
             }
 
             await _db.SaveChangesAsync();
-            return true;
+            return ServiceResult.Ok();
         }
     }
 }
