@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TodoApp.Services;
 
 
+
 namespace TodoApp.Controllers
 {
     [Route("api/tasks")]
@@ -28,13 +29,16 @@ namespace TodoApp.Controllers
                 return BadRequest("タスクリストが空です");
             }
 
-            bool success = await _taskService.ReOrderTaskAsync(taskIds);
+            var result = await _taskService.ReOrderTaskAsync(taskIds);
 
-            if (!success)
+            if (!result.Success)
             {
-                return NotFound("指定されたタスクの一部が見つかりませんでした");
+                return result.ErrorCode switch
+                {
+                    "TaskNotFound" => NotFound(result.ErrorMessage),
+                    _ => StatusCode(500, result.ErrorMessage ?? "不明なエラーが発生しました")
+                };
             }
-
             return Ok();
         }
     }
