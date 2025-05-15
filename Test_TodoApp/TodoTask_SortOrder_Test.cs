@@ -35,7 +35,7 @@ public class TodoTask_SortOrder_Test : IDisposable
         db.TodoTasks.AddRange(tasks);
         db.SaveChanges();
 
-        var result = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder);
+        var result = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder,false);
 
         Assert.Equal(1, result[0].SortOrder);
         Assert.Equal(tasks[0].Title, result[0].Title);
@@ -73,7 +73,7 @@ public class TodoTask_SortOrder_Test : IDisposable
         // 1, 2, 3, 4 -> 1, 4, 2, 3
         await tasks[3].OrderAsync(db, 2);
 
-        var result = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder);
+        var result = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder,false);
 
         Assert.Equal(1, result[0].SortOrder);
         Assert.Equal(tasks[0].Title, result[0].Title);
