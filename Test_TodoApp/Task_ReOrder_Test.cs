@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System.Net.Http.Json;
+using TodoApp.Controllers;
 using TodoApp.Data;
 using TodoApp.Models;
+using TodoApp.Services;
 
 namespace Test_TodoApp;
 
@@ -41,11 +43,16 @@ public class Task_ReOrder_Test : IDisposable
         db.SaveChanges();
 
         var reorderRequest = new List<int> { tasks[2].Id, tasks[0].Id, tasks[1].Id };
-        var response = await _client.PostAsJsonAsync("/api/tasks/reorder", reorderRequest);
 
-        response.EnsureSuccessStatusCode();
+        var taskService = new TaskService(db);
 
-        var sortTasks = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder);
+        var controller = new TasksController(taskService);
+
+        var result = await controller.ReOrderTasks(reorderRequest);
+
+        Assert.IsType<OkResult>(result);
+
+        var sortTasks = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder,false);
 
         Assert.Equal(reorderRequest[0], sortTasks[0].Id);
         Assert.Equal(reorderRequest[1], sortTasks[1].Id);
