@@ -1,0 +1,22 @@
+@using TodoApp.Models
+@model TodoTask
+
+<div class="card border p-3 mb-2">
+    <h4>@Model.Title</h4>
+    <p>優先度: @Model.Priority</p>
+
+    @if (!string.IsNullOrEmpty(Model.Body))
+    {
+        <p class="multiline-text">@Model.Body</p>
+    }
+
+    <form method="post" asp-page-handler="Complete">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <label>
+            <input type="checkbox" />
+            完了
+        </label>
+    </form>
+
+    <a href="@Url.Page("Edit", new { id = Model.Id })">編集</a>
+</div>

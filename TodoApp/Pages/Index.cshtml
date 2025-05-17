@@ -47,28 +47,7 @@
 
     @foreach (var task in Model.Tasks)
     {
-        <li class="task-item">
-            <h4>@task.Title</h4>
-
-            <p>優先度: @task.Priority</p>
-
-            @if (!string.IsNullOrEmpty(task.Body))
-            {
-                <p class="multiline-text">@task.Body</p>
-            }
-
-            <form class="complete-form" method="post" asp-page-handler="Complete">
-                <input type="hidden" name="id" value="@task.Id" />
-                <label>
-                    <input type="checkbox" />
-                    完了
-                </label>
-            </form>
-
-            <a href="@Url.Page("Edit", new { id = task.Id })" class="edit-button">
-                <i class="fas fa-pencil-alt"></i>
-            </a>
-        </li>
+        @await Html.PartialAsync("_TaskCard", task)
     }
 </ul>
 
