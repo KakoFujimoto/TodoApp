@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
 using TodoApp.Models;
@@ -45,6 +46,30 @@ public class IndexPage_Test : IDisposable
         {
             Assert.True(ids[i] > ids[i + 1]);
         }
+
+        transaction.Rollback();
+    }
+
+    [Fact]
+
+    public async Task Create_WithDueDate_Ok_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        db.TodoTasks.AddRange(new[]
+        {
+            TodoTask.Create("期限付きタスクA","Body A", 1 , new DateTime(2025, 6, 1)),
+            TodoTask.Create("期限付きタスクB","Body B", 2 , new DateTime(2025, 6, 2)),
+            TodoTask.Create("期限付きタスクC", "Body C", 3 , null),
+        });
+
+        await db.SaveChangesAsync();
+
+        var tasks = await db.TodoTasks.ToListAsync();
+
+        Assert.Equal(3, tasks.Count);
+        Assert.Equal(new DateTime(2025, 6, 1), tasks[0].DueDate);
+        Assert.Null(tasks[2].DueDate);
 
         transaction.Rollback();
     }
