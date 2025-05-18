@@ -43,13 +43,13 @@
 <p>
     <a asp-page="/Archive" class="archive-link">→ アーカイブされたタスクを見る</a>
 </p>
-<ul id="task-list">
+<div id="task-list">
 
     @foreach (var task in Model.Tasks)
     {
         @await Html.PartialAsync("_TaskCard", task)
     }
-</ul>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -69,6 +69,18 @@
                     form.submit();
                 }
             });
+        });
+
+        new Sortable(document.getElementById('task-list'), {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onEnd: function (evt) {
+                const order = [];
+                document.querySelectorAll('#task-list .task-card').forEach(el => {
+                    order.push(el.getAttribute('data-id'));
+                });
+                console.log('new order:', order);
+            }
         });
     });
 </script>
