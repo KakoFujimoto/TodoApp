@@ -58,9 +58,9 @@ public class IndexPage_Test : IDisposable
 
         db.TodoTasks.AddRange(new[]
         {
-            TodoTask.Create("期限付きタスクA","Body A", 1 , new DateTime(2025, 6, 1)),
-            TodoTask.Create("期限付きタスクB","Body B", 2 , new DateTime(2025, 6, 2)),
-            TodoTask.Create("期限付きタスクC", "Body C", 3 , null),
+            TodoTask.Create("期限付きタスクA","Body A", Priority.Urgent , new DateTime(2025, 6, 1)),
+            TodoTask.Create("期限付きタスクB","Body B", Priority.Normal , new DateTime(2025, 6, 2)),
+            TodoTask.Create("期限付きタスクC", "Body C", Priority.Low, null),
         });
 
         await db.SaveChangesAsync();

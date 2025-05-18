@@ -75,13 +75,14 @@ namespace TodoApp.Models
         /// <summary>
         /// 追加するデータの定義、準備
         /// </summary>
-        public static TodoTask Create(string title, string body, Priority priority = Priority.Normal)
+        public static TodoTask Create(string title, string body, Priority priority = Priority.Normal, DateTime? dueDate = null)
         {
             return new TodoTask
             {
                 Title = title,
                 Body = body,
-                Priority = priority
+                Priority = priority,
+                DueDate = dueDate
             };
         }
 
