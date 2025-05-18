@@ -80,6 +80,24 @@
                     order.push(el.getAttribute('data-id'));
                 });
                 console.log('new order:', order);
+
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+                fetch('/?handler=UpdateOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify(order)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('順序保存に失敗しました');
+                    }
+                    console.log('順序が保存されました');
+                }).catch(error => {
+                    console.error('順序保存エラー', error);
+                });
             }
         });
     });

@@ -1,9 +1,7 @@
-using System.Drawing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TodoApp.Data;
 using TodoApp.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TodoApp.Pages
 {
@@ -94,6 +92,26 @@ namespace TodoApp.Pages
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUpdateOrderAsync([FromBody] List<int> order)
+        {
+            if (order == null || order.Count == 0)
+            {
+                return BadRequest("Invalid order list");
+            }
+
+            for (int i = 0; i < order.Count; i++)
+            {
+                var task = await _context.TodoTasks.FindAsync(order[i]);
+                if (task != null)
+                {
+                    task.SortOrder = i;
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
         }
     }
 }
