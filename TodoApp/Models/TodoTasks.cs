@@ -62,6 +62,12 @@ namespace TodoApp.Models
         public int SortOrder { get; set; }
 
         /// <summary>
+        /// タスクの期日
+        /// </summary>
+        public DateTime? DueDate { get; set; }
+
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         private TodoTask() { }
