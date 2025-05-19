@@ -25,7 +25,7 @@ namespace TodoApp.Services
 
             if (tasks.Count != taskIds.Count)
             {
-                return ServiceResult.Fail("TaskNotFound", "指定されたタスクの一部が見つかりませんでした");
+                return ServiceResult.Fail(ErrorMessages.TaskNotFound.Code, ErrorMessages.TaskNotFound.Message);
             }
 
             for (int i = 0; i < taskIds.Count; i++)
