@@ -47,7 +47,7 @@
 
     @foreach (var task in Model.Tasks)
     {
-        @await Html.PartialAsync("_TaskCard", task)
+        @await Component.InvokeAsync("TaskCard", new { task })
     }
 </div>
 
