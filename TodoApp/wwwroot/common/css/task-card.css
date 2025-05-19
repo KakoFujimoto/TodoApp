@@ -1,0 +1,61 @@
+.task-item {
+  margin-bottom: 1.5rem; 
+}
+
+.task-card {
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+.task-card:hover {
+  background-color: #2a2a2a;
+}
+
+.task-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+.task-card p {
+  margin: 4px 0;
+  color: #c0c0c0;
+}
+
+.task-card input[type="checkbox"] {
+  margin-right: 6px;
+  transform: scale(1.2);
+}
+
+.task-card label {
+  font-weight: normal;
+  color: #ccc;
+}
+
+.task-card .edit-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #90caf9;
+  text-decoration: none;
+}
+
+.task-card .edit-link:hover {
+  color: #bbdefb;
+  text-decoration: underline;
+}
+
+.edit-icon {
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.task:hover .edit-icon {
+  display: inline-block;
+}

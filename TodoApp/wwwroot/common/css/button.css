@@ -1,0 +1,68 @@
+button {
+  padding: 10px 20px;
+  background-color: #3b3b3b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3b3b3b;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  font-family: inherit;
+  font-weight: normal;
+  text-align: center;
+}
+
+.button-link:hover {
+  background-color: #444;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #444;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: #444;
+  color: white;
+  text-decoration: none;
+}
+
+.inline-delete-form {
+  display: inline;
+}

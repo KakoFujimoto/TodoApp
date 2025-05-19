@@ -1,0 +1,21 @@
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: sans-serif;
+}
+
+a {
+  color: #90caf9;
+}
+
+a:hover {
+  color: #bbdefb;
+}
+
+header, nav, footer {
+  background-color: #1e1e1e;
+}
+
+.multiline-text {
+  white-space: pre-line;
+}
