@@ -77,7 +77,7 @@ namespace TodoApp.Pages
                 }
                 return Page();
             }
-            var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority);
+            var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority, FormData.DueDate);
             await todoTask.SaveAsync(_context);
             return RedirectToPage();
 

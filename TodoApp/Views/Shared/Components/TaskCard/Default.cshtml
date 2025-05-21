@@ -10,6 +10,11 @@
         <p class="multiline-text">@Model.Body</p>
     }
 
+    @if (Model.DueDate.HasValue)
+    {
+        <p class="task-due-date">期日: @Model.DueDate.Value.ToString("yyyy-MM-dd")</p>
+    }
+
     <form method="post" asp-page-handler="Complete">
         <input type="hidden" name="id" value="@Model.Id" />
         <label>
