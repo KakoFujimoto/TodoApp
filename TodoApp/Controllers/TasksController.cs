@@ -25,19 +25,17 @@ namespace TodoApp.Controllers
         {
             if (taskIds == null || !taskIds.Any())
             {
-                Console.Error.WriteLine(ErrorMessages.UpdateOrderFailed.Message);
-                return StatusCode(500, ErrorMessages.UpdateOrderFailed);
+                var error = ErrorMessages.Get(ErrorCode.UpdateOrderFailed);
+                Console.Error.WriteLine(error.Message);
+                return StatusCode(500, error);
             }
 
             var result = await _taskService.ReOrderTaskAsync(taskIds);
 
             if (!result.Success)
             {
-                var error = result.ErrorCode switch
-                {
-                    "TaskNotFound" => ErrorMessages.TaskNotFound,
-                    _ => ErrorMessages.UnknownError
-                };
+                var errorCode = result.ErrorCode ?? ErrorCode.UnknownError;
+                var error = ErrorMessages.Get(errorCode);
 
                 Console.Error.WriteLine(error.Message);
                 return StatusCode(500, error);

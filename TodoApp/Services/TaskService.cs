@@ -25,7 +25,9 @@ namespace TodoApp.Services
 
             if (tasks.Count != taskIds.Count)
             {
-                return ServiceResult.Fail(ErrorMessages.TaskNotFound.Code, ErrorMessages.TaskNotFound.Message);
+                var error = ErrorMessages.Get(ErrorCode.TaskNotFound);
+                return ServiceResult.Fail(error.Code, error.Message);
+
             }
 
             for (int i = 0; i < taskIds.Count; i++)

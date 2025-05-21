@@ -3,7 +3,7 @@ namespace TodoApp.Common
     public class ServiceResult
     {
         public bool Success { get; set; }
-        public string? ErrorCode { get; set; }
+        public ErrorCode? ErrorCode { get; set; }
 
         public string? ErrorMessage { get; set; }
 
@@ -12,7 +12,7 @@ namespace TodoApp.Common
             return new ServiceResult { Success = true };
         }
 
-        public static ServiceResult Fail(string code, string message)
+        public static ServiceResult Fail(ErrorCode code, string message)
         {
             return new ServiceResult
             {
