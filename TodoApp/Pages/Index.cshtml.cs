@@ -93,25 +93,5 @@ namespace TodoApp.Pages
             }
             return RedirectToPage();
         }
-
-        public async Task<IActionResult> OnPostUpdateOrderAsync([FromBody] List<int> order)
-        {
-            if (order == null || order.Count == 0)
-            {
-                return BadRequest("Invalid order list");
-            }
-
-            for (int i = 0; i < order.Count; i++)
-            {
-                var task = await _context.TodoTasks.FindAsync(order[i]);
-                if (task != null)
-                {
-                    task.SortOrder = i;
-                }
-            }
-            await _context.SaveChangesAsync();
-
-            return new JsonResult(new { success = true });
-        }
     }
 }
