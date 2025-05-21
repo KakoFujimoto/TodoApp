@@ -8,6 +8,7 @@ namespace TodoApp.Common
         {
             { ErrorCode.TaskNotFound, "指定されたタスクの一部が見つかりませんでした"},
             { ErrorCode.UpdateOrderFailed, "順序保存に失敗しました"},
+            { ErrorCode.EmptyTaskList, "タスクリストが空です"},
             { ErrorCode.UnknownError, "不明なエラーが発生しました"}
         };
 

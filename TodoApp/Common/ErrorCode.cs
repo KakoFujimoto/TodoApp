@@ -4,6 +4,7 @@ namespace TodoApp.Common
     {
         TaskNotFound,
         UpdateOrderFailed,
+        EmptyTaskList,
         UnknownError
     }
 }

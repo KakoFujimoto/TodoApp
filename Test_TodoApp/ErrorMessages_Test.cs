@@ -7,6 +7,7 @@ namespace Test_TodoApp
         [Theory]
         [InlineData(ErrorCode.TaskNotFound, "指定されたタスクの一部が見つかりませんでした")]
         [InlineData(ErrorCode.UpdateOrderFailed, "順序保存に失敗しました")]
+        [InlineData(ErrorCode.EmptyTaskList, "タスクリストが空です")]
         [InlineData(ErrorCode.UnknownError, "不明なエラーが発生しました")]
         public void エラーコードに対応するメッセージが正しく返される(ErrorCode code, string expectedMessage)
         {

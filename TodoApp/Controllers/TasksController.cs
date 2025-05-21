@@ -19,7 +19,7 @@ namespace TodoApp.Controllers
         /// タスクの並び替えを行うAPI
         /// </summary>
         /// <param name="taskIds">並び順に並べたタスクIDリスト</param>
-        /// <return>HTTP 200 OKまたはエラー</return>
+        /// <returns>HTTP 200 OKまたはエラー</returns>
         [HttpPost("reorder")]
         public async Task<IActionResult> ReOrderTasks([FromBody] List<int> taskIds)
         {
@@ -27,7 +27,7 @@ namespace TodoApp.Controllers
             {
                 var error = ErrorMessages.Get(ErrorCode.UpdateOrderFailed);
                 Console.Error.WriteLine(error.Message);
-                return StatusCode(500, error);
+                return BadRequest(error);
             }
 
             var result = await _taskService.ReOrderTaskAsync(taskIds);
