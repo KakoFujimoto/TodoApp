@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Services;
 using TodoApp.Common;
+using TodoApp.DTO;
 
 namespace TodoApp.Controllers
 {
@@ -21,16 +22,16 @@ namespace TodoApp.Controllers
         /// <param name="taskIds">並び順に並べたタスクIDリスト</param>
         /// <returns>HTTP 200 OKまたはエラー</returns>
         [HttpPost("reorder")]
-        public async Task<IActionResult> ReOrderTasks([FromBody] List<int> taskIds)
+        public async Task<IActionResult> ReOrderTasks([FromBody] ReOrderRequestDto request)
         {
-            if (taskIds == null || !taskIds.Any())
+            if (request == null || request.TaskId <= 0 || request.NewIndex < 0)
             {
                 var error = ErrorMessages.Get(ErrorCode.UpdateOrderFailed);
                 Console.Error.WriteLine(error.Message);
                 return BadRequest(error);
             }
 
-            var result = await _taskService.ReOrderTaskAsync(taskIds);
+            var result = await _taskService.ReOrderTaskAsync(request.TaskId, request.NewIndex);
 
             if (!result.Success)
             {
