@@ -197,8 +197,8 @@ public class TodoTask_SortOrder_Test : IDisposable
         var error = await targetTask.OrderAsync(db, 新しい並び順);
 
         Assert.NotNull(error);
-        Assert.Equal(ErrorMessages.InvalidSortOrder.Code, error.Code);
-        Assert.Equal(ErrorMessages.InvalidSortOrder.Message, error.Message);
+        Assert.Equal(ErrorCode.InvalidSortOrder, error.Code);
+        Assert.Equal(ErrorMessages.Get(ErrorCode.InvalidSortOrder).Message, error.Message);
     }
 
 }

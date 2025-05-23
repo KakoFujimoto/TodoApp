@@ -158,14 +158,14 @@ namespace TodoApp.Models
         {
             if (v < 1)
             {
-                return ErrorMessages.InvalidSortOrder;
+                return ErrorMessages.Get(ErrorCode.InvalidSortOrder);
             }
 
             var tasks = await db.TodoTasks.OrderBy(t => t.SortOrder).ToListAsync();
 
             if (!tasks.Any(t => t.Id == this.Id))
             {
-                return ErrorMessages.TaskNotFound;
+                return ErrorMessages.Get(ErrorCode.TaskNotFound);
             }
 
             tasks.RemoveAll(t => t.Id == this.Id);
