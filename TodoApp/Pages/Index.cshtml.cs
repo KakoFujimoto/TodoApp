@@ -77,7 +77,7 @@ namespace TodoApp.Pages
                 }
                 return Page();
             }
-            var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority);
+            var todoTask = TodoTask.Create(FormData.Title, FormData.Body, FormData.Priority, FormData.DueDate);
             await todoTask.SaveAsync(_context);
             return RedirectToPage();
 
@@ -92,26 +92,6 @@ namespace TodoApp.Pages
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostUpdateOrderAsync([FromBody] List<int> order)
-        {
-            if (order == null || order.Count == 0)
-            {
-                return BadRequest("Invalid order list");
-            }
-
-            for (int i = 0; i < order.Count; i++)
-            {
-                var task = await _context.TodoTasks.FindAsync(order[i]);
-                if (task != null)
-                {
-                    task.SortOrder = i;
-                }
-            }
-            await _context.SaveChangesAsync();
-
-            return new JsonResult(new { success = true });
         }
     }
 }

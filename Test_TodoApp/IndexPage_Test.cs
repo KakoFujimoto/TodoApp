@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
 using TodoApp.Models;
@@ -70,6 +69,26 @@ public class IndexPage_Test : IDisposable
         Assert.Equal(3, tasks.Count);
         Assert.Equal(new DateTime(2025, 6, 1), tasks[0].DueDate);
         Assert.Null(tasks[2].DueDate);
+
+        transaction.Rollback();
+    }
+
+    [Fact]
+
+    public async Task Create_WithPastDueDate_Ng_Test()
+    {
+        using var transaction = db.Database.BeginTransaction();
+
+        var pastDate = DateTime.Now.AddDays(-1);
+        var task = TodoTask.Create("過去のタスク", "過去です", Priority.Normal, pastDate);
+
+        db.TodoTasks.Add(task);
+        await db.SaveChangesAsync();
+
+        var savedTask = await db.TodoTasks.FirstOrDefaultAsync(t => t.Title == "過去のタスク");
+
+        Assert.NotNull(savedTask);
+        Assert.True(savedTask.DueDate < DateTime.Now);
 
         transaction.Rollback();
     }

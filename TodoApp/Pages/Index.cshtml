@@ -22,6 +22,12 @@
         </select>
         <span asp-validation-for="FormData.Priority"></span>
     </div>
+    <div>
+        <label asp-for="FormData.DueDate">期日:</label>
+        <input type="date" asp-for="FormData.DueDate" />
+        <span asp-validation-for="FormData.DueDate"></span>
+    </div>
+
     <button type="submit">追加</button>
 </form>
 

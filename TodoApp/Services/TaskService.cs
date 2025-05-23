@@ -19,19 +19,23 @@ namespace TodoApp.Services
         /// </summary>
         /// <param name="taslIds">新しい順序のタスクIdリスト</param>
         /// <returns>成功したかどうか</returns>
-        public async Task<ServiceResult> ReOrderTaskAsync(List<int> taskIds)
+        public async Task<ServiceResult> ReOrderTaskAsync(int taskId, int newSortOrder)
         {
-            var tasks = await _db.TodoTasks.Where(t => taskIds.Contains(t.Id)).ToListAsync();
+            var task = await _db.TodoTasks.FirstOrDefaultAsync(t => t.Id == taskId);
 
-            if (tasks.Count != taskIds.Count)
+            if (task == null)
             {
-                return ServiceResult.Fail(ErrorMessages.TaskNotFound.Code, ErrorMessages.TaskNotFound.Message);
+                var error = ErrorMessages.Get(ErrorCode.TaskNotFound);
+                return ServiceResult.Fail(error.Code, error.Message);
+
             }
 
-            for (int i = 0; i < taskIds.Count; i++)
+            var allTasks = await _db.TodoTasks.Where(t => t.Id != taskId).OrderBy(t => t.SortOrder).ToListAsync();
+            allTasks.Insert(newSortOrder, task);
+
+            for (int i = 0; i < allTasks.Count; i++)
             {
-                var task = tasks.First(t => t.Id == taskIds[i]);
-                task.SortOrder = i + 1;
+                allTasks[i].SortOrder = i + 1;
             }
 
             await _db.SaveChangesAsync();
