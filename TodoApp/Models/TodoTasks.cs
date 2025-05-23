@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.Data;
 using Microsoft.EntityFrameworkCore;
+using TodoApp.Common;
 
 namespace TodoApp.Models
 {
@@ -153,11 +154,26 @@ namespace TodoApp.Models
             this.IsCompleted = true;
         }
 
-        public async Task OrderAsync(AppDbContext db, int v)
+        public async Task<ErrorMessage?> OrderAsync(AppDbContext db, int v)
         {
+            if (v < 1)
+            {
+                return ErrorMessages.InvalidSortOrder;
+            }
+
             var tasks = await db.TodoTasks.OrderBy(t => t.SortOrder).ToListAsync();
 
+            if (!tasks.Any(t => t.Id == this.Id))
+            {
+                return ErrorMessages.TaskNotFound;
+            }
+
             tasks.RemoveAll(t => t.Id == this.Id);
+
+            if (v > tasks.Count + 1)
+            {
+                v = tasks.Count + 1;
+            }
 
             tasks.Insert(v - 1, this);
 
@@ -167,6 +183,8 @@ namespace TodoApp.Models
             }
 
             await db.SaveChangesAsync();
+            return null;
         }
+
     }
 }

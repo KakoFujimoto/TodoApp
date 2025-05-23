@@ -8,6 +8,8 @@ namespace TodoApp.Common
 
         public static readonly ErrorMessage UnknownError = new("UnknownError", "不明なエラーが発生しました");
 
+        public static readonly ErrorMessage InvalidSortOrder = new("InvalidSortOrder", "無効な並び順が指定されました");
+
     }
     public record ErrorMessage(string Code, string Message);
 }
