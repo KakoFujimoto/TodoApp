@@ -78,6 +78,10 @@ namespace TodoApp.Models
         /// </summary>
         public static TodoTask Create(string title, string body, Priority priority = Priority.Normal, DateTime? dueDate = null)
         {
+            if (dueDate.HasValue && dueDate.Value.Date < DateTime.Now.Date)
+            {
+                throw new InvalidOperationException("期日には過去の日付を指定できません。");
+            }
             return new TodoTask
             {
                 Title = title,

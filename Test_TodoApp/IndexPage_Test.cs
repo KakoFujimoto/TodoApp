@@ -75,22 +75,14 @@ public class IndexPage_Test : IDisposable
 
     [Fact]
 
-    public async Task Create_WithPastDueDate_Ng_Test()
+    public void Create_WithPastDueDate_Ng_Test()
     {
         using var transaction = db.Database.BeginTransaction();
 
         var pastDate = DateTime.Now.AddDays(-1);
-        var task = TodoTask.Create("過去のタスク", "過去です", Priority.Normal, pastDate);
-
-        db.TodoTasks.Add(task);
-        await db.SaveChangesAsync();
-
-        var savedTask = await db.TodoTasks.FirstOrDefaultAsync(t => t.Title == "過去のタスク");
-
-        Assert.NotNull(savedTask);
-        Assert.True(savedTask.DueDate < DateTime.Now);
-
-        transaction.Rollback();
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            var task = TodoTask.Create("過去のタスク", "過去です", Priority.Normal, pastDate);
+        });
     }
-
 }
