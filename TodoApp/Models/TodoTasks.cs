@@ -24,6 +24,12 @@ namespace TodoApp.Models
         Low = 3
     }
 
+    public enum CategoryType
+    {
+        Work = 0,
+        Private = 1
+    }
+
     /// <summary>
     /// Todoアプリで扱うタスクのデータを保持するモデル
     /// </summary>
@@ -67,6 +73,11 @@ namespace TodoApp.Models
         /// タスクの期日
         /// </summary>
         public DateTime? DueDate { get; set; }
+
+        /// <summary>
+        /// タスクのカテゴリ
+        /// </summary>
+        public CategoryType Category { get; set; }
 
 
         /// <summary>
