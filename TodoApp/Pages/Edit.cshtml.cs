@@ -49,7 +49,7 @@ namespace TodoApp.Pages
                 return NotFound();
             }
 
-            taskInDb.Update(FormData.Title, FormData.Body, FormData.Priority);
+            taskInDb.Update(FormData.Title, FormData.Body, FormData.Priority, FormData.DueDate);
 
             await _context.SaveChangesAsync();
 

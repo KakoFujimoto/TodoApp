@@ -24,5 +24,10 @@ namespace TodoApp.Pages
         [PriorityValidation(ErrorMessage = "優先度を選択してください")]
         public Priority Priority { get; set; } = Priority.None;
 
+        [DataType(DataType.Date)]
+        [Display(Name = "期日")]
+        [DueDateValidation(ErrorMessage = "期日は未来の日付を指定してください")]
+        public DateTime? DueDate { get; set; }
+
     }
 }

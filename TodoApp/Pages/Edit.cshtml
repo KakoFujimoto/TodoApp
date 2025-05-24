@@ -27,7 +27,11 @@
         <select asp-for="FormData.Priority" asp-items="Html.GetEnumSelectList<Priority>()"></select>
         <span asp-validation-for="FormData.Priority"></span>
     </div>
-
+    <div>
+        <label asp-for="FormData.DueDate">期日:</label>
+        <input type="date" asp-for="FormData.DueDate" />
+        <span asp-validation-for="FormData.DueDate"></span>
+    </div>
     <div class="button-group">
         <button type="submit" class="btn btn-primary">Save</button>
         <a asp-page="/Index" class="btn btn-secondary">Cancel</a>
