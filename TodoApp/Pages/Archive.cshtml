@@ -10,6 +10,10 @@
             <h4>@task.Title</h4>
             <p>優先度: @task.Priority</p>
             <p class="multiline-text">@task.Body</p>
+            @if (task.DueDate.HasValue)
+            {
+                <p class="task-due-date">期日: @task.DueDate.Value.ToString("yyyy-MM-dd")</p>
+            }
         </li>
     }
 </ul>
