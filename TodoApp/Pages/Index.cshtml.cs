@@ -83,14 +83,19 @@ namespace TodoApp.Pages
 
         }
 
-        public async Task<IActionResult> OnPostCompleteAsync(int id)
+        public async Task<IActionResult> OnPostCompleteAsync(int id, string isComplete)
         {
-            var task = await _context.TodoTasks.FindAsync(id);
-            if (task != null)
+            if (isComplete != "true")
             {
-                task.SetCompleted();
-                await _context.SaveChangesAsync();
+                return RedirectToPage();
             }
+
+            var task = await _context.TodoTasks.FindAsync(id);
+            if (task == null) return NotFound();
+
+            task.SetCompleted();
+            await _context.SaveChangesAsync();
+
             return RedirectToPage();
         }
     }

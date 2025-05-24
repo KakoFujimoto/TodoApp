@@ -15,10 +15,11 @@
         <p class="task-due-date">期日: @Model.DueDate.Value.ToString("yyyy-MM-dd")</p>
     }
 
-    <form method="post" asp-page-handler="Complete">
+    <form method="post" action="/Index?handler=Complete" class="complete-form">
         <input type="hidden" name="id" value="@Model.Id" />
+        @Html.AntiForgeryToken()
         <label>
-            <input type="checkbox" />
+            <input type="checkbox" name="isComplete" value="true" />
             完了
         </label>
     </form>
