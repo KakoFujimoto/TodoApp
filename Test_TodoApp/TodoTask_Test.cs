@@ -99,11 +99,16 @@ public class TodoTask_Test : IDisposable
     {
         var task = TodoTask.Create("Old Title", "Old Body");
 
-        task.Update("New Title", "New Body", Priority.Urgent);
+        var newDueDate = new DateTime(2025, 6, 1);
+        var newCategory = CategoryType.Work;
+
+        task.Update("New Title", "New Body", Priority.Urgent, newDueDate, newCategory);
 
         Assert.Equal("New Title", task.Title);
         Assert.Equal("New Body", task.Body);
         Assert.Equal(Priority.Urgent, task.Priority);
+        Assert.Equal(newDueDate, task.DueDate);
+        Assert.Equal(newCategory, task.Category);
     }
 
     [Fact]
