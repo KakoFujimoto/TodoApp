@@ -26,8 +26,9 @@ namespace TodoApp.Models
 
     public enum CategoryType
     {
-        Work = 0,
-        Private = 1
+        None = 0,
+        Work = 1,
+        Private = 2
     }
 
     /// <summary>
@@ -77,7 +78,7 @@ namespace TodoApp.Models
         /// <summary>
         /// タスクのカテゴリ
         /// </summary>
-        public CategoryType Category { get; set; }
+        public CategoryType Category { get; set; } = CategoryType.None;
 
 
         /// <summary>
@@ -88,7 +89,12 @@ namespace TodoApp.Models
         /// <summary>
         /// 追加するデータの定義、準備
         /// </summary>
-        public static TodoTask Create(string title, string body, Priority priority = Priority.Normal, DateTime? dueDate = null)
+        public static TodoTask Create(
+            string title,
+            string body,
+            Priority priority = Priority.Normal,
+            DateTime? dueDate = null,
+            CategoryType category = CategoryType.None)
         {
             if (dueDate.HasValue && dueDate.Value.Date < DateTime.Now.Date)
             {
@@ -99,7 +105,8 @@ namespace TodoApp.Models
                 Title = title,
                 Body = body,
                 Priority = priority,
-                DueDate = dueDate
+                DueDate = dueDate,
+                Category = category
             };
         }
 

@@ -27,6 +27,11 @@
         <input type="date" asp-for="FormData.DueDate" />
         <span asp-validation-for="FormData.DueDate"></span>
     </div>
+    <div>
+        <label asp-for="FormData.Category">カテゴリ:</label>
+        <select asp-for="FormData.Category" asp-items="Html.GetEnumSelectList<CategoryType>()"></select>
+        <span asp-asp-validation-for="FormData.Category"></span>
+    </div>
 
     <button type="submit">追加</button>
 </form>
