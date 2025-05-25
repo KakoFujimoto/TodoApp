@@ -14,6 +14,7 @@
     {
         <p class="task-due-date">期日: @Model.DueDate.Value.ToString("yyyy-MM-dd")</p>
     }
+    <p>カテゴリ: @Model.Category</p>
 
     <form method="post" action="/Index?handler=Complete" class="complete-form">
         <input type="hidden" name="id" value="@Model.Id" />
