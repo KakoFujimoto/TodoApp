@@ -28,6 +28,7 @@ namespace TodoApp.Pages
         [Display(Name = "期日")]
         [DueDateValidation(ErrorMessage = "期日は未来の日付を指定してください")]
         public DateTime? DueDate { get; set; }
+        public CategoryType Category { get; set; } = CategoryType.None;
 
     }
 }

@@ -29,7 +29,8 @@ namespace TodoApp.Pages
                 Id = task.Id,
                 Title = task.Title,
                 Body = task.Body,
-                Priority = task.Priority
+                Priority = task.Priority,
+                Category = task.Category
             };
 
             return Page();
@@ -49,7 +50,12 @@ namespace TodoApp.Pages
                 return NotFound();
             }
 
-            taskInDb.Update(FormData.Title, FormData.Body, FormData.Priority, FormData.DueDate);
+            taskInDb.Update(
+                FormData.Title,
+                FormData.Body,
+                FormData.Priority,
+                FormData.DueDate,
+                FormData.Category);
 
             await _context.SaveChangesAsync();
 

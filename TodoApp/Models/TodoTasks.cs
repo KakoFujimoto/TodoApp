@@ -164,12 +164,18 @@ namespace TodoApp.Models
         /// <summary>
         /// 外部から与えられたデータで更新する
         /// </summary>
-        public void Update(string title, string body, Priority priority, DateTime? dueDate)
+        public void Update(
+            string title,
+            string body,
+            Priority priority,
+            DateTime? dueDate,
+            CategoryType category)
         {
             Title = title;
             Body = body;
             Priority = priority;
             DueDate = dueDate;
+            Category = category;
         }
 
         /// <summary>

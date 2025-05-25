@@ -32,6 +32,11 @@
         <input type="date" asp-for="FormData.DueDate" />
         <span asp-validation-for="FormData.DueDate"></span>
     </div>
+    <div>
+        <label asp-for="FormData.Category">カテゴリ:</label>
+        <select asp-for="FormData.Category" asp-items="Html.GetEnumSelectList<CategoryType>()"></select>
+        <span asp-asp-validation-for="FormData.Category"></span>
+    </div>
     <div class="button-group">
         <button type="submit" class="btn btn-primary">Save</button>
         <a asp-page="/Index" class="btn btn-secondary">Cancel</a>
