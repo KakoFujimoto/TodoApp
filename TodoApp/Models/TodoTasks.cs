@@ -13,7 +13,8 @@ namespace TodoApp.Models
         // Title,
         // Body
         SortOrder,
-        DueDate
+        DueDate,
+        Category
     }
 
     public enum Priority
@@ -140,12 +141,18 @@ namespace TodoApp.Models
             {
                 (TaskOrderBy.Id, true) => query.OrderByDescending(t => t.Id),
                 (TaskOrderBy.Id, false) => query.OrderBy(t => t.Id),
+
                 (TaskOrderBy.Priority, true) => query.OrderByDescending(t => t.Priority),
                 (TaskOrderBy.Priority, false) => query.OrderBy(t => t.Priority),
+
                 (TaskOrderBy.SortOrder, true) => query.OrderByDescending(t => t.SortOrder),
                 (TaskOrderBy.SortOrder, false) => query.OrderBy(t => t.SortOrder),
+
                 (TaskOrderBy.DueDate, true) => query.OrderByDescending(t => t.DueDate),
                 (TaskOrderBy.DueDate, false) => query.OrderBy(t => t.DueDate),
+
+                (TaskOrderBy.Category, true) => query.OrderByDescending(t => t.Category),
+                (TaskOrderBy.Category, false) => query.OrderBy(t => t.Category),
                 _ => query.OrderByDescending(t => t.Id)
             };
 
