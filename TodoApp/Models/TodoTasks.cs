@@ -126,8 +126,8 @@ namespace TodoApp.Models
         /// </summary>
         public static async Task<List<TodoTask>> GetSortedTasksAsync(
             AppDbContext context,
-            TaskOrderBy orderBy = TaskOrderBy.Id,
-            bool descending = true,
+            TaskOrderBy orderBy = TaskOrderBy.SortOrder,
+            bool descending = false,
             bool? isCompleted = null)
         {
             IQueryable<TodoTask> query = context.TodoTasks;
@@ -153,7 +153,7 @@ namespace TodoApp.Models
 
                 (TaskOrderBy.Category, true) => query.OrderByDescending(t => t.Category),
                 (TaskOrderBy.Category, false) => query.OrderBy(t => t.Category),
-                _ => query.OrderByDescending(t => t.Id)
+                _ => query.OrderByDescending(t => t.SortOrder)
             };
 
             return await query.ToListAsync();
