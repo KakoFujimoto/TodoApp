@@ -30,6 +30,7 @@ namespace TodoApp.Pages
                 Title = task.Title,
                 Body = task.Body,
                 Priority = task.Priority,
+                DueDate = task.DueDate,
                 Category = task.Category
             };
 
