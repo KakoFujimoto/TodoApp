@@ -85,17 +85,22 @@
             animation: 150,
             ghostClass: 'sortable-ghost',
             onEnd: function (evt) {
-                const order = [];
-                document.querySelectorAll('#task-list .task-card').forEach(el => {
-                    order.push(el.getAttribute('data-id'));
-                });
+                const taskId = Number(evt.item.getAttribute('data-id'));
+                const newIndex = evt.newIndex;
 
                 fetch('/api/tasks/reorder', {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json'
                     },
-                    body: JSON.stringify(order)
+                    body: JSON.stringify({
+                        taskId: taskId,
+                        newIndex: newIndex
+                    })
+                }).then(res => {
+                    if (!res.ok) {
+                        console.error("SortOrder update failed");
+                    }
                 });
             }
         });
