@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Query;
 using TodoApp.Common;
 using TodoApp.Data;
 using TodoApp.Models;
@@ -73,22 +74,24 @@ public class TodoTask_SortOrder_Test : IDisposable
         db.TodoTasks.AddRange(tasks);
         db.SaveChanges();
 
+        var service = new TaskService(db);
+
         // 1, 2, 3, 4 -> 1, 4, 2, 3
-        await tasks[3].OrderAsync(db, 2);
+        var result = await service.ReOrderTaskAsync(tasks[3].Id, 2);
 
-        var result = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder, false);
+        var sorted = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder, false);
 
-        Assert.Equal(1, result[0].SortOrder);
-        Assert.Equal(tasks[0].Title, result[0].Title);
+        Assert.Equal(1, sorted[0].SortOrder);
+        Assert.Equal(tasks[0].Title, sorted[0].Title);
 
-        Assert.Equal(2, result[1].SortOrder);
-        Assert.Equal(tasks[3].Title, result[1].Title);
+        Assert.Equal(2, sorted[1].SortOrder);
+        Assert.Equal(tasks[3].Title, sorted[1].Title);
 
-        Assert.Equal(3, result[2].SortOrder);
-        Assert.Equal(tasks[1].Title, result[2].Title);
+        Assert.Equal(3, sorted[2].SortOrder);
+        Assert.Equal(tasks[1].Title, sorted[2].Title);
 
-        Assert.Equal(4, result[3].SortOrder);
-        Assert.Equal(tasks[2].Title, result[3].Title);
+        Assert.Equal(4, sorted[3].SortOrder);
+        Assert.Equal(tasks[2].Title, sorted[3].Title);
     }
 
     [Fact]
@@ -198,12 +201,13 @@ public class TodoTask_SortOrder_Test : IDisposable
         db.TodoTasks.AddRange(tasks);
         db.SaveChanges();
 
+        var service = new TaskService(db);
         var targetTask = tasks[元々の順番 - 1];
-        var error = await targetTask.OrderAsync(db, 新しい並び順);
+        var result = await service.ReOrderTaskAsync(targetTask.Id, 新しい並び順);
 
-        Assert.NotNull(error);
-        Assert.Equal(ErrorCode.InvalidSortOrder, error.Code);
-        Assert.Equal(ErrorMessages.Get(ErrorCode.InvalidSortOrder).Message, error.Message);
+        Assert.False(result.Success);
+        Assert.Equal(ErrorCode.InvalidSortOrder, result.ErrorCode);
+        Assert.Equal(ErrorMessages.Get(ErrorCode.InvalidSortOrder).Message, result.ErrorMessage);
     }
 
 }

@@ -21,6 +21,12 @@ namespace TodoApp.Services
         /// <returns>成功したかどうか</returns>
         public async Task<ServiceResult> ReOrderTaskAsync(int taskId, int newSortOrder)
         {
+            if (newSortOrder <= 0)
+            {
+                var error = ErrorMessages.Get(ErrorCode.InvalidSortOrder);
+                return ServiceResult.Fail(error.Code, error.Message);
+            }
+            
             var task = await _db.TodoTasks.FirstOrDefaultAsync(t => t.Id == taskId);
 
             if (task == null)
