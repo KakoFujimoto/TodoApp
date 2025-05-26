@@ -88,9 +88,9 @@ namespace TodoApp.Pages
 
         }
 
-        public async Task<IActionResult> OnPostCompleteAsync(int id, string isComplete)
+        public async Task<IActionResult> OnPostCompleteAsync(int id, bool isComplete)
         {
-            if (isComplete != "true")
+            if (!isComplete)
             {
                 return RedirectToPage();
             }
