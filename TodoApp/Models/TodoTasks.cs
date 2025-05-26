@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using TodoApp.Data;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Common;
+using System.Data;
+using Microsoft.VisualBasic;
 
 namespace TodoApp.Models
 {
@@ -97,10 +99,8 @@ namespace TodoApp.Models
             DateTime? dueDate = null,
             CategoryType category = CategoryType.None)
         {
-            if (dueDate.HasValue && dueDate.Value.Date < DateTime.Now.Date)
-            {
-                throw new InvalidOperationException("期日には過去の日付を指定できません。");
-            }
+            ValidateDueDate(dueDate);
+
             return new TodoTask
             {
                 Title = title,
@@ -178,6 +178,7 @@ namespace TodoApp.Models
             DateTime? dueDate,
             CategoryType category)
         {
+            ValidateDueDate(dueDate);
             Title = title;
             Body = body;
             Priority = priority;
@@ -191,6 +192,14 @@ namespace TodoApp.Models
         public void SetCompleted()
         {
             this.IsCompleted = true;
+        }
+
+        private static void ValidateDueDate(DateTime? dueDate)
+        {
+            if (dueDate.HasValue && dueDate.Value.Date < DateTime.Now.Date)
+            {
+                throw new InvalidOperationException("期日には過去の日付を指定できません。");
+            }
         }
     }
 }
