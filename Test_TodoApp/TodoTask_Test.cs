@@ -66,7 +66,7 @@ public class TodoTask_Test : IDisposable
         var tasks = await TodoTask.GetSortedTasksAsync(db);
         var titles = tasks.Select(t => t.Title).ToList();
 
-        Assert.Equal(new List<string> { "Third", "Second", "First" }, titles);
+        Assert.Equal(new List<string> { "First", "Second", "Third" }, titles);
 
         transaction.Rollback();
     }

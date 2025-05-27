@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore.Query;
 using TodoApp.Common;
 using TodoApp.Data;
 using TodoApp.Models;
@@ -77,7 +75,7 @@ public class TodoTask_SortOrder_Test : IDisposable
         var service = new TaskService(db);
 
         // 1, 2, 3, 4 -> 1, 4, 2, 3
-        var result = await service.ReOrderTaskAsync(tasks[3].Id, 2);
+        var result = await service.ReOrderTaskAsync(tasks[3].Id, 1);
 
         var sorted = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder, false);
 
