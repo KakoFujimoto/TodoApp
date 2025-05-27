@@ -63,14 +63,15 @@ public class Task_ReOrder_Test : IDisposable
         };
 
         var result2 = await controller.ReOrderTasks(move2);
+    
         Assert.IsType<OkResult>(result2);
 
         var sortedTasks = await TodoTask.GetSortedTasksAsync(db, TaskOrderBy.SortOrder, false);
 
 
-        Assert.Equal(tasks[2].Id, sortedTasks[0].Id);
-        Assert.Equal(tasks[0].Id, sortedTasks[1].Id);
-        Assert.Equal(tasks[1].Id, sortedTasks[2].Id);
+        Assert.Equal(tasks[0].Id, sortedTasks[1].Id); //A
+        Assert.Equal(tasks[1].Id, sortedTasks[2].Id); //B
+        Assert.Equal(tasks[2].Id, sortedTasks[0].Id); //C
 
         transaction.Rollback();
 

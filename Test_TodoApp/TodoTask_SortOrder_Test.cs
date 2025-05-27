@@ -175,11 +175,9 @@ public class TodoTask_SortOrder_Test : IDisposable
     }
 
     [Theory]
-    [InlineData(0, 2)]
     [InlineData(-1, 2)]
-    [InlineData(0, 4)]
-    [InlineData(-1, 4)]
-    public async Task SortOrderに0以下の数値が入ったときエラーになる(int 新しい並び順, int 元々の順番)
+    [InlineData(-3, 4)]
+    public async Task newSortOrderに負の数値が入ったときエラーになる(int 新しい並び順, int 元々の順番)
     {
         using var transaction = db.Database.BeginTransaction();
 
